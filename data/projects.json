@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1761115802837,
+    "title": [
+      "Testing Upload"
+    ],
+    "description": [
+      "testing"
+    ],
+    "images": [
+      "/uploads/1761115802836_image (5).png"
+    ],
+    "category": [
+      "Bathroom"
+    ],
+    "location": [
+      "bangalore,india"
+    ],
+    "link": "",
+    "createdAt": "2025-10-22T06:50:02.837Z"
+  },
+  {
+    "id": 1761115802626,
+    "title": [
+      "Testing Upload"
+    ],
+    "description": [
+      "testing"
+    ],
+    "images": [
+      "/uploads/1761115802624_image (5).png"
+    ],
+    "category": [
+      "Bathroom"
+    ],
+    "location": [
+      "bangalore,india"
+    ],
+    "link": "",
+    "createdAt": "2025-10-22T06:50:02.626Z"
+  },
+  {
+    "id": 1761025805368,
+    "title": "Modern Living Room",
+    "images": [
+      "https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=1927&q=80"
+    ],
+    "description": "A stunning modern living room with a minimalist design, featuring a comfortable sofa, elegant coffee table, and large windows that fill the space with natural light. The neutral color palette is accented with pops of color from the artwork and accessories, creating a chic and inviting atmosphere.",
+    "category": "Living Room",
+    "location": "Mumbai, India"
+  },
+  {
+    "id": 1761052185422,
+    "title": "Luxury Kitchen Renovation",
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1556909218-e85e083ea20a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1556909218-e85e083ea20a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+    ],
+    "description": "A complete luxury kitchen renovation featuring premium appliances, custom cabinetry, and elegant stone countertops. This modern kitchen combines functionality with style, creating the perfect space for cooking and entertaining.",
+    "category": "Kitchen",
+    "location": "Delhi, India"
+  }
+]

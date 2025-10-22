@@ -1,0 +1,15 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/admin": "pages/admin.html",
+  "/api/leads": "pages/api/leads.js",
+  "/api/projects": "pages/api/projects.js",
+  "/api/testimonials": "pages/api/testimonials.js",
+  "/contact": "pages/contact.html",
+  "/": "pages/index.html",
+  "/machinery": "pages/machinery.html",
+  "/work": "pages/work.html",
+  "/api/upload": "pages/api/upload.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
