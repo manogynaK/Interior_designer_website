@@ -4,6 +4,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Script from 'next/script';
 import Layout from '../components/Layout';
+import { ThemeProvider } from '../components/ThemeContext';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -21,9 +22,11 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ThemeProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
     </>
   );
 }

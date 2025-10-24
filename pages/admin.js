@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FiUser, FiMail, FiMessageSquare, FiPhone, FiEdit, FiTrash2, FiPlus, FiX, FiEye, FiEyeOff } from 'react-icons/fi';
 import Link from 'next/link';
+import { useTheme } from '../components/ThemeContext';
 
 const Admin = () => {
   const [projects, setProjects] = useState([]);
@@ -8,7 +9,7 @@ const Admin = () => {
   const [leads, setLeads] = useState([]);
   const [newProject, setNewProject] = useState({ title: '', description: '', images: [''], category: '', location: '' });
   const [editingProject, setEditingProject] = useState(null);
-  const [newTestimonial, setNewTestimonial] = useState({ name: '', quote: '' });
+  const [newTestimonial, setNewTestimonial] = useState({ name: '', quote: '', image: '', rating: 5, location: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -16,6 +17,7 @@ const Admin = () => {
   const [uploadMethod, setUploadMethod] = useState('url'); // 'url' or 'file'
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadMessage, setUploadMessage] = useState('');
+  const { theme } = useTheme();
 
   const fetchProjects = async () => {
     const res = await fetch('/api/projects');
@@ -109,12 +111,17 @@ const Admin = () => {
 
   const handleAddTestimonial = async (e) => {
     e.preventDefault();
+    const testimonialToAdd = {
+      ...newTestimonial,
+      rating: parseInt(newTestimonial.rating) || 5,
+      location: newTestimonial.location || ''
+    };
     await fetch('/api/testimonials', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newTestimonial),
+      body: JSON.stringify(testimonialToAdd),
     });
-    setNewTestimonial({ name: '', quote: '' });
+    setNewTestimonial({ name: '', quote: '', image: '', rating: 5, location: '' });
     fetchTestimonials();
   };
 
@@ -175,16 +182,26 @@ const Admin = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center py-20">
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-md w-full">
+      <div className={`min-h-screen transition-colors duration-300 flex items-center justify-center py-20 ${
+        theme === 'dark' ? 'bg-dark-primary' : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
+        <div className={`rounded-2xl shadow-xl p-8 md:p-12 max-w-md w-full ${
+          theme === 'dark' ? 'bg-dark-gray-100 border border-dark-gray-700' : 'bg-white'
+        }`}>
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-serif font-bold text-secondary mb-2">Admin Login</h1>
-            <div className="w-16 h-1 bg-accent mx-auto rounded-full"></div>
+            <h1 className={`text-3xl font-serif font-bold mb-2 ${
+              theme === 'dark' ? 'text-dark-secondary' : 'text-secondary'
+            }`}>Admin Login</h1>
+            <div className={`w-16 h-1 mx-auto rounded-full ${
+              theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
+            }`}></div>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className={`block text-sm font-medium mb-2 ${
+                theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-700'
+              }`}>
                 Password
               </label>
               <div className="relative">
@@ -194,13 +211,19 @@ const Admin = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors"
+                  className={`w-full px-4 py-3 pr-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors ${
+                    theme === 'dark'
+                      ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                      : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                  }`}
                   placeholder="Enter admin password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
+                    theme === 'dark' ? 'text-dark-gray-400 hover:text-dark-gray-200' : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
                   {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
                 </button>
@@ -215,7 +238,9 @@ const Admin = () => {
 
             <button
               type="submit"
-              className="w-full bg-accent text-white font-bold py-3 px-6 rounded-lg hover:bg-accent/90 transition-colors"
+              className={`w-full font-bold py-3 px-6 rounded-lg transition-colors ${
+                theme === 'dark' ? 'bg-dark-accent hover:bg-dark-accent/90' : 'bg-accent hover:bg-accent/90'
+              } text-white`}
             >
               Login
             </button>
@@ -226,25 +251,39 @@ const Admin = () => {
   }
 
   return (
-    <div className="py-20 bg-gray-100 min-h-screen">
-      <div className="container mx-auto px-6">
-        <div className="flex justify-between items-center mb-12">
-          <h1 className="text-5xl font-serif font-bold text-center text-gray-800">Admin Dashboard</h1>
+    <div className={`py-8 pt-24 transition-colors duration-300 min-h-screen ${
+      theme === 'dark' ? 'bg-dark-primary text-dark-secondary' : 'bg-gray-100'
+    }`}>
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
+          <h1 className={`text-4xl sm:text-5xl font-serif font-bold ${
+            theme === 'dark' ? 'text-dark-secondary' : 'text-gray-800'
+          }`}>Admin Dashboard</h1>
           <button
             onClick={() => setIsAuthenticated(false)}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+            className={`px-6 py-3 rounded-lg transition-colors font-medium ${
+              theme === 'dark' ? 'bg-dark-accent hover:bg-dark-accent/90' : 'bg-red-500 hover:bg-red-600'
+            } text-white`}
           >
             Logout
           </button>
         </div>
 
         {/* Project Management */}
-        <div className="bg-white p-8 rounded-lg shadow-md mb-12">
-          <h2 className="text-3xl font-serif font-bold text-gray-800 mb-6">Manage Projects</h2>
+        <div className={`p-8 rounded-lg shadow-md mb-12 ${
+          theme === 'dark' ? 'bg-dark-gray-100 border border-dark-gray-700' : 'bg-white'
+        }`}>
+          <h2 className={`text-3xl font-serif font-bold mb-6 ${
+            theme === 'dark' ? 'text-dark-secondary' : 'text-gray-800'
+          }`}>Manage Projects</h2>
 
           {/* Add Project Form */}
-          <form onSubmit={uploadMethod === 'file' ? handleFileUpload : handleAddProject} className="mb-8 bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-2xl font-serif font-bold text-gray-700 mb-4">Add New Project</h3>
+          <form onSubmit={uploadMethod === 'file' ? handleFileUpload : handleAddProject} className={`mb-8 p-6 rounded-lg ${
+            theme === 'dark' ? 'bg-dark-primary border border-dark-gray-600' : 'bg-gray-50'
+          }`}>
+            <h3 className={`text-2xl font-serif font-bold mb-4 ${
+              theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+            }`}>Add New Project</h3>
 
             {/* Upload Method Toggle */}
             <div className="mb-6">
@@ -252,14 +291,26 @@ const Admin = () => {
                 <button
                   type="button"
                   onClick={() => setUploadMethod('url')}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${uploadMethod === 'url' ? 'bg-accent text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    uploadMethod === 'url'
+                      ? 'bg-accent text-white'
+                      : theme === 'dark'
+                        ? 'bg-dark-gray-600 text-dark-gray-300 hover:bg-dark-gray-500'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
                 >
                   Image URLs
                 </button>
                 <button
                   type="button"
                   onClick={() => setUploadMethod('file')}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${uploadMethod === 'file' ? 'bg-accent text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    uploadMethod === 'file'
+                      ? 'bg-accent text-white'
+                      : theme === 'dark'
+                        ? 'bg-dark-gray-600 text-dark-gray-300 hover:bg-dark-gray-500'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
                 >
                   Upload Files
                 </button>
@@ -279,13 +330,21 @@ const Admin = () => {
                 placeholder="Project Title"
                 value={newProject.title || ''}
                 onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
-                className="w-full p-3 rounded border border-gray-300"
+                className={`w-full p-3 rounded border transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                    : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
                 required
               />
               <select
                 value={newProject.category || ''}
                 onChange={(e) => setNewProject({ ...newProject, category: e.target.value })}
-                className="w-full p-3 rounded border border-gray-300"
+                className={`w-full p-3 rounded border transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300'
+                    : 'border-gray-300 text-gray-900'
+                }`}
               >
                 <option value="">Select Category</option>
                 <option value="Living Room">Living Room</option>
@@ -302,14 +361,22 @@ const Admin = () => {
               placeholder="Location (e.g., Mumbai, India)"
               value={newProject.location || ''}
               onChange={(e) => setNewProject({ ...newProject, location: e.target.value })}
-              className="w-full p-3 rounded border border-gray-300 mb-4"
+              className={`w-full p-3 rounded border mb-4 transition-colors ${
+                theme === 'dark'
+                  ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                  : 'border-gray-300 text-gray-900 placeholder-gray-500'
+              }`}
             />
 
             <textarea
               placeholder="Project Description"
               value={newProject.description || ''}
               onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-              className="w-full p-3 rounded border border-gray-300 mb-4"
+              className={`w-full p-3 rounded border mb-4 transition-colors ${
+                theme === 'dark'
+                  ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                  : 'border-gray-300 text-gray-900 placeholder-gray-500'
+              }`}
               rows="3"
               required
             ></textarea>
@@ -317,7 +384,9 @@ const Admin = () => {
             {/* Image Input Section */}
             {uploadMethod === 'url' ? (
               <>
-                <label className="block text-gray-700 font-bold mb-2">Images</label>
+                <label className={`block font-bold mb-2 ${
+                  theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+                }`}>Images</label>
                 {newProject.images.map((image, index) => (
                   <div key={index} className="flex items-center mb-2">
                     <input
@@ -329,7 +398,11 @@ const Admin = () => {
                         images[index] = e.target.value;
                         setNewProject({ ...newProject, images });
                       }}
-                      className="w-full p-3 rounded border border-gray-300"
+                      className={`w-full p-3 rounded border transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                          : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
                     />
                     {newProject.images.length > 1 && (
                       <button
@@ -338,7 +411,9 @@ const Admin = () => {
                           const images = newProject.images.filter((_, i) => i !== index);
                           setNewProject({ ...newProject, images });
                         }}
-                        className="ml-2 text-red-500 hover:text-red-700"
+                        className={`ml-2 transition-colors ${
+                          theme === 'dark' ? 'text-red-400 hover:text-red-300' : 'text-red-500 hover:text-red-700'
+                        }`}
                       >
                         <FiTrash2 size={20} />
                       </button>
@@ -348,17 +423,23 @@ const Admin = () => {
                 <button
                   type="button"
                   onClick={() => setNewProject({ ...newProject, images: [...newProject.images, ''] })}
-                  className="text-accent font-bold py-2 px-4 rounded-full font-sans text-sm hover:bg-accent/10 transition-all flex items-center"
+                  className={`font-bold py-2 px-4 rounded-full font-sans text-sm transition-all flex items-center ${
+                    theme === 'dark' ? 'text-dark-accent hover:bg-dark-accent/10' : 'text-accent hover:bg-accent/10'
+                  }`}
                 >
                   <FiPlus className="mr-2" />Add Another Image
                 </button>
               </>
             ) : (
               <>
-                <label htmlFor="file-input" className="block text-gray-700 font-bold mb-2">
+                <label htmlFor="file-input" className={`block font-bold mb-2 ${
+                  theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+                }`}>
                   Project Images *
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-accent/50 transition-colors">
+                <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                  theme === 'dark' ? 'border-dark-gray-600 hover:border-dark-accent/50' : 'border-gray-300 hover:border-accent/50'
+                }`}>
                   <input
                     type="file"
                     id="file-input"
@@ -370,10 +451,12 @@ const Admin = () => {
                   />
                   <label htmlFor="file-input" className="cursor-pointer">
                     <div className="space-y-2">
-                      <svg className="w-12 h-12 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className={`w-12 h-12 mx-auto transition-colors ${
+                        theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-400'
+                      }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                       </svg>
-                      <div className="text-gray-600">
+                      <div className={theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'}>
                         <p className="text-lg font-medium">Click to upload images</p>
                         <p className="text-sm">PNG, JPG up to 10MB each</p>
                       </div>
@@ -384,10 +467,12 @@ const Admin = () => {
                 {/* Selected Files Preview */}
                 {selectedFiles.length > 0 && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-600 mb-2">Selected files:</p>
+                    <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>Selected files:</p>
                     <div className="flex flex-wrap gap-2">
                       {selectedFiles.map((file, index) => (
-                        <div key={index} className="bg-gray-100 rounded-lg px-3 py-2 text-sm">
+                        <div key={index} className={`rounded-lg px-3 py-2 text-sm ${
+                          theme === 'dark' ? 'bg-dark-gray-600 text-dark-gray-300' : 'bg-gray-100 text-gray-700'
+                        }`}>
                           {file.name}
                         </div>
                       ))}
@@ -400,7 +485,9 @@ const Admin = () => {
             <button
               type="submit"
               disabled={uploadMethod === 'file' ? (selectedFiles.length === 0 || !newProject.title || !newProject.description) : (!newProject.title || !newProject.description || newProject.images.every(img => img.trim() === ''))}
-              className="bg-accent text-white font-bold py-3 px-6 rounded-full font-sans text-lg hover:bg-accent/90 transition-all mt-4 w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`font-bold py-3 px-6 rounded-full font-sans text-lg transition-all mt-4 w-full disabled:opacity-50 disabled:cursor-not-allowed ${
+                theme === 'dark' ? 'bg-dark-accent hover:bg-dark-accent/90' : 'bg-accent hover:bg-accent/90'
+              } text-white`}
             >
               {uploadMethod === 'file' ? 'Upload & Create Project' : 'Add Project'}
             </button>
@@ -409,17 +496,27 @@ const Admin = () => {
           {/* Project List */}
           <div className="space-y-4">
             {projects.map(p => (
-              <div key={p.id} className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+              <div key={p.id} className={`flex items-center justify-between p-4 rounded-lg shadow-sm border transition-colors ${
+                theme === 'dark' ? 'bg-dark-gray-700 border-dark-gray-600' : 'bg-white border-gray-200'
+              }`}>
                 <div className="flex-1">
-                  <span className="font-bold text-gray-700">{p.title}</span>
+                  <span className={`font-bold ${
+                    theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+                  }`}>{p.title}</span>
                   {p.category && <span className="ml-2 text-xs bg-accent/10 text-accent px-2 py-1 rounded-full">{p.category}</span>}
-                  {p.location && <span className="ml-2 text-xs text-gray-500">📍 {p.location}</span>}
+                  {p.location && <span className={`ml-2 text-xs ${
+                    theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-500'
+                  }`}>📍 {p.location}</span>}
                 </div>
                 <div className="flex items-center">
-                  <button onClick={() => setEditingProject(p)} className="text-blue-500 hover:text-blue-700 mr-4">
+                  <button onClick={() => setEditingProject(p)} className={`mr-4 transition-colors ${
+                    theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-500 hover:text-blue-700'
+                  }`}>
                     <FiEdit size={20} />
                   </button>
-                  <button onClick={() => handleDeleteProject(p.id)} className="text-red-500 hover:text-red-700">
+                  <button onClick={() => handleDeleteProject(p.id)} className={`transition-colors ${
+                    theme === 'dark' ? 'text-red-400 hover:text-red-300' : 'text-red-500 hover:text-red-700'
+                  }`}>
                     <FiTrash2 size={20} />
                   </button>
                 </div>
@@ -429,25 +526,43 @@ const Admin = () => {
         </div>
 
         {/* Potential Leads */}
-        <div className="bg-white p-8 rounded-lg shadow-md mb-12">
-          <h2 className="text-3xl font-serif font-bold text-gray-800 mb-6">Potential Leads</h2>
+        <div className={`p-8 rounded-lg shadow-md mb-12 ${
+          theme === 'dark' ? 'bg-dark-gray-100 border border-dark-gray-700' : 'bg-white'
+        }`}>
+          <h2 className={`text-3xl font-serif font-bold mb-6 ${
+            theme === 'dark' ? 'text-dark-secondary' : 'text-gray-800'
+          }`}>Potential Leads</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {leads.map(lead => (
-              <div key={lead.id} className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+              <div key={lead.id} className={`p-6 rounded-xl shadow-lg border transition-all duration-300 hover:shadow-xl ${
+                theme === 'dark' ? 'bg-dark-gray-700 border-dark-gray-600 hover:border-dark-accent/30' : 'bg-white border-gray-200 hover:border-accent/30'
+              }`}>
                 <div className="flex items-center mb-4">
-                  <FiUser className="text-accent mr-3" size={24} />
-                  <h3 className="text-2xl font-serif font-bold text-secondary">{lead.name}</h3>
+                  <FiUser className={`mr-3 ${theme === 'dark' ? 'text-dark-accent' : 'text-accent'}`} size={24} />
+                  <h3 className={`text-2xl font-serif font-bold ${
+                    theme === 'dark' ? 'text-dark-secondary' : 'text-secondary'
+                  }`}>{lead.name}</h3>
                 </div>
-                <div className="flex items-center text-gray-600 mb-4">
+                <div className={`flex items-center mb-4 ${
+                  theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+                }`}>
                   <FiMail className="mr-3" size={20} />
-                  <a href={`mailto:${lead.email}`} className="hover:text-accent transition-colors">{lead.email}</a>
+                  <a href={`mailto:${lead.email}`} className={`transition-colors hover:text-accent ${
+                    theme === 'dark' ? 'hover:text-dark-accent' : 'hover:text-accent'
+                  }`}>{lead.email}</a>
                 </div>
-                <div className="flex items-center text-gray-600 mb-4">
+                <div className={`flex items-center mb-4 ${
+                  theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+                }`}>
                   <FiPhone className="mr-3" size={20} />
                   <span>{lead.phone}</span>
                 </div>
-                <div className="text-gray-700 bg-gray-50 p-4 rounded-lg">
-                  <FiMessageSquare className="inline-block mr-2 text-gray-500" size={20} />
+                <div className={`p-4 rounded-lg ${
+                  theme === 'dark' ? 'bg-dark-gray-800/50 text-dark-gray-300' : 'bg-gray-50 text-gray-700'
+                }`}>
+                  <FiMessageSquare className={`inline-block mr-2 ${
+                    theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-500'
+                  }`} size={20} />
                   <span className="align-middle">{lead.message}</span>
                 </div>
               </div>
@@ -456,40 +571,157 @@ const Admin = () => {
         </div>
 
         {/* Testimonial Management */}
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-3xl font-serif font-bold text-gray-800 mb-6">Manage Testimonials</h2>
-          <form onSubmit={handleAddTestimonial} className="mb-8">
-            <input
-              type="text"
-              placeholder="Client Name"
-              value={newTestimonial.name}
-              onChange={(e) => setNewTestimonial({ ...newTestimonial, name: e.target.value })}
-              className="w-full p-3 rounded bg-gray-50 border border-gray-300 text-gray-800 mb-4"
-            />
+        <div className={`p-8 rounded-lg shadow-md ${
+          theme === 'dark' ? 'bg-dark-gray-100 border border-dark-gray-700' : 'bg-white'
+        }`}>
+          <h2 className={`text-3xl font-serif font-bold mb-6 ${
+            theme === 'dark' ? 'text-dark-secondary' : 'text-gray-800'
+          }`}>Manage Testimonials</h2>
+          <form onSubmit={handleAddTestimonial} className={`mb-8 p-6 rounded-lg ${
+            theme === 'dark' ? 'bg-dark-primary border border-dark-gray-600' : 'bg-gray-50'
+          }`}>
+            <h3 className={`text-2xl font-serif font-bold mb-4 ${
+              theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+            }`}>Add New Testimonial</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                placeholder="Client Name"
+                value={newTestimonial.name}
+                onChange={(e) => setNewTestimonial({ ...newTestimonial, name: e.target.value })}
+                className={`w-full p-3 rounded border transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                    : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Location (e.g., Mumbai, India)"
+                value={newTestimonial.location}
+                onChange={(e) => setNewTestimonial({ ...newTestimonial, location: e.target.value })}
+                className={`w-full p-3 rounded border transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                    : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className={`block font-bold mb-2 ${
+                theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+              }`}>Profile Image URL</label>
+              <input
+                type="text"
+                placeholder="https://example.com/image.jpg"
+                value={newTestimonial.image}
+                onChange={(e) => setNewTestimonial({ ...newTestimonial, image: e.target.value })}
+                className={`w-full p-3 rounded border transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                    : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className={`block font-bold mb-2 ${
+                theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+              }`}>Rating</label>
+              <select
+                value={newTestimonial.rating}
+                onChange={(e) => setNewTestimonial({ ...newTestimonial, rating: parseInt(e.target.value) })}
+                className={`w-full p-3 rounded border transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300'
+                    : 'border-gray-300 text-gray-900'
+                }`}
+              >
+                <option value={5}>⭐⭐⭐⭐⭐ (5 Stars)</option>
+                <option value={4}>⭐⭐⭐⭐ (4 Stars)</option>
+                <option value={3}>⭐⭐⭐ (3 Stars)</option>
+                <option value={2}>⭐⭐ (2 Stars)</option>
+                <option value={1}>⭐ (1 Star)</option>
+              </select>
+            </div>
+
             <textarea
               placeholder="Testimonial Quote"
               value={newTestimonial.quote}
               onChange={(e) => setNewTestimonial({ ...newTestimonial, quote: e.target.value })}
-              className="w-full p-3 rounded bg-gray-50 border border-gray-300 text-gray-800 mb-4"
+              className={`w-full p-3 rounded border mb-4 transition-colors ${
+                theme === 'dark'
+                  ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                  : 'border-gray-300 text-gray-900 placeholder-gray-500'
+              }`}
               rows="4"
+              required
             ></textarea>
-            <button type="submit" className="bg-accent text-white font-bold py-3 px-6 rounded-full font-sans text-lg hover:bg-accent/90 transition-all">
+
+            <button type="submit" className={`font-bold py-3 px-6 rounded-full font-sans text-lg transition-all w-full ${
+              theme === 'dark' ? 'bg-dark-accent hover:bg-dark-accent/90' : 'bg-accent hover:bg-accent/90'
+            } text-white`}>
               Add Testimonial
             </button>
           </form>
+
           <div className="space-y-4">
+            <h4 className={`text-xl font-serif font-bold mb-4 ${
+              theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+            }`}>Existing Testimonials</h4>
             {testimonials.map(t => (
-              <div key={t.id} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-gray-800">{t.name}</span>
+              <div key={t.id} className={`p-4 rounded-lg border shadow-sm transition-colors ${
+                theme === 'dark' ? 'bg-dark-gray-700 border-dark-gray-600' : 'bg-white border-gray-200'
+              }`}>
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className={`font-bold text-lg ${
+                        theme === 'dark' ? 'text-dark-secondary' : 'text-gray-800'
+                      }`}>{t.name}</span>
+                      {t.location && <span className={`text-sm px-2 py-1 rounded-full ${
+                        theme === 'dark' ? 'text-dark-gray-400 bg-dark-gray-600' : 'text-gray-500 bg-gray-100'
+                      }`}>📍 {t.location}</span>}
+                    </div>
+                    {t.rating && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="flex text-yellow-400">
+                          {[...Array(5)].map((_, i) => (
+                            <span key={i} className={i < t.rating ? 'text-yellow-400' : 'text-gray-300'}>⭐</span>
+                          ))}
+                        </div>
+                        <span className={`text-sm ${
+                          theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'
+                        }`}>({t.rating}/5)</span>
+                      </div>
+                    )}
+                    {t.image && (
+                      <div className="mb-2">
+                        <img
+                          src={t.image}
+                          alt={t.name}
+                          className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+                        />
+                      </div>
+                    )}
+                  </div>
                   <button
                     onClick={() => handleDeleteTestimonial(t.id)}
-                    className="text-red-500 hover:text-red-700"
+                    className={`p-1 transition-colors ${
+                      theme === 'dark' ? 'text-red-400 hover:text-red-300' : 'text-red-500 hover:text-red-700'
+                    }`}
                   >
                     <FiTrash2 size={18} />
                   </button>
                 </div>
-                <p className="text-gray-700">"{t.quote}"</p>
+                <blockquote className={`italic text-base border-l-4 pl-4 ${
+                  theme === 'dark' ? 'text-dark-gray-300 border-dark-accent/50' : 'text-gray-700 border-accent'
+                }`}>
+                  "{t.quote}"
+                </blockquote>
               </div>
             ))}
           </div>
@@ -498,11 +730,17 @@ const Admin = () => {
 
       {/* Edit Project Modal */}
       {editingProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl max-h-full overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className={`p-8 rounded-lg shadow-2xl w-full max-w-2xl max-h-full overflow-y-auto ${
+            theme === 'dark' ? 'bg-dark-gray-100 border border-dark-gray-700' : 'bg-white'
+          }`}>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-serif font-bold text-gray-800">Edit Project</h2>
-              <button onClick={() => setEditingProject(null)} className="text-gray-500 hover:text-gray-800">
+              <h2 className={`text-3xl font-serif font-bold ${
+                theme === 'dark' ? 'text-dark-secondary' : 'text-gray-800'
+              }`}>Edit Project</h2>
+              <button onClick={() => setEditingProject(null)} className={`transition-colors ${
+                theme === 'dark' ? 'text-dark-gray-400 hover:text-dark-gray-200' : 'text-gray-500 hover:text-gray-800'
+              }`}>
                 <FiX size={28} />
               </button>
             </div>
@@ -513,13 +751,21 @@ const Admin = () => {
                   placeholder="Project Title"
                   value={editingProject.title || ''}
                   onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
-                  className="w-full p-3 rounded border border-gray-300"
+                  className={`w-full p-3 rounded border transition-colors ${
+                    theme === 'dark'
+                      ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                      : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                  }`}
                   required
                 />
                 <select
                   value={editingProject.category || ''}
                   onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                  className="w-full p-3 rounded border border-gray-300"
+                  className={`w-full p-3 rounded border transition-colors ${
+                    theme === 'dark'
+                      ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300'
+                      : 'border-gray-300 text-gray-900'
+                  }`}
                 >
                   <option value="">Select Category</option>
                   <option value="Living Room">Living Room</option>
@@ -536,19 +782,29 @@ const Admin = () => {
                 placeholder="Location (e.g., Mumbai, India)"
                 value={editingProject.location || ''}
                 onChange={(e) => setEditingProject({ ...editingProject, location: e.target.value })}
-                className="w-full p-3 rounded border border-gray-300 mb-4"
+                className={`w-full p-3 rounded border mb-4 transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                    : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
               />
 
               <textarea
                 placeholder="Project Description"
                 value={editingProject.description || ''}
                 onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
-                className="w-full p-3 rounded border border-gray-300 mb-4"
+                className={`w-full p-3 rounded border mb-4 transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                    : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
                 rows="4"
                 required
               ></textarea>
 
-              <label className="block text-gray-700 font-bold mb-2">Images</label>
+              <label className={`block font-bold mb-2 ${
+                theme === 'dark' ? 'text-dark-secondary' : 'text-gray-700'
+              }`}>Images</label>
               {editingProject.images.map((image, index) => (
                 <div key={index} className="flex items-center mb-2">
                   <input
@@ -560,7 +816,11 @@ const Admin = () => {
                       images[index] = e.target.value;
                       setEditingProject({ ...editingProject, images });
                     }}
-                    className="w-full p-3 rounded border border-gray-300"
+                    className={`w-full p-3 rounded border transition-colors ${
+                      theme === 'dark'
+                        ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                        : 'border-gray-300 text-gray-900 placeholder-gray-500'
+                    }`}
                     required
                   />
                   <button
@@ -569,7 +829,9 @@ const Admin = () => {
                       const images = editingProject.images.filter((_, i) => i !== index);
                       setEditingProject({ ...editingProject, images });
                     }}
-                    className="ml-2 text-red-500 hover:text-red-700"
+                    className={`ml-2 transition-colors ${
+                      theme === 'dark' ? 'text-red-400 hover:text-red-300' : 'text-red-500 hover:text-red-700'
+                    }`}
                   >
                     <FiTrash2 size={20} />
                   </button>
@@ -578,13 +840,17 @@ const Admin = () => {
               <button
                 type="button"
                 onClick={() => setEditingProject({ ...editingProject, images: [...editingProject.images, ''] })}
-                className="text-accent font-bold py-2 px-4 rounded-full font-sans text-sm hover:bg-accent/10 transition-all flex items-center mb-4"
+                className={`font-bold py-2 px-4 rounded-full font-sans text-sm transition-all flex items-center mb-4 ${
+                  theme === 'dark' ? 'text-dark-accent hover:bg-dark-accent/10' : 'text-accent hover:bg-accent/10'
+                }`}
               >
                 <FiPlus className="mr-2" />Add Another Image
               </button>
               <button
                 type="submit"
-                className="bg-accent text-white font-bold py-3 px-8 rounded-full font-sans text-lg hover:bg-accent/90 transition-all w-full"
+                className={`font-bold py-3 px-8 rounded-full font-sans text-lg transition-all w-full ${
+                  theme === 'dark' ? 'bg-dark-accent hover:bg-dark-accent/90' : 'bg-accent hover:bg-accent/90'
+                } text-white`}
               >
                 Save Changes
               </button>

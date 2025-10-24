@@ -2,6 +2,43 @@
   {
     "id": 1761052235549,
     "name": "Manogyna",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
     "quote": "The services offered are really visually enchanting."
+  },
+  {
+    "id": 1761052235550,
+    "name": "Priya Sharma",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    "quote": "Meghana Interiors transformed our home into a dream space. The attention to detail and quality of work is exceptional. Highly recommended!"
+  },
+  {
+    "id": 1761052235551,
+    "name": "Rajesh Kumar",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    "quote": "Professional service from start to finish. The team understood our vision perfectly and delivered beyond expectations. Our office looks amazing now!"
+  },
+  {
+    "id": 1761052235552,
+    "name": "Anita Patel",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    "quote": "The bedroom makeover exceeded all our expectations. The space feels so much more peaceful and functional. Thank you for the wonderful work!"
+  },
+  {
+    "id": 1761052235553,
+    "name": "Vikram Singh",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    "quote": "Outstanding kitchen renovation! The design is both beautiful and practical. Cooking has become a joy in our new space. Excellent craftsmanship throughout."
+  },
+  {
+    "id": 1761052235554,
+    "name": "Kavita Reddy",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    "quote": "Living room transformation is absolutely stunning! The team captured our style perfectly and created a space that's both elegant and comfortable."
   }
 ]
