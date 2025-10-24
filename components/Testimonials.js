@@ -67,7 +67,7 @@ const Testimonials = () => {
   const infiniteTestimonials = testimonials.length > 0 ? [...testimonials, ...testimonials, ...testimonials] : [];
 
   return (
-    <div className={`py-12 md:py-16 transition-colors duration-300 relative overflow-hidden ${
+    <div className={`py-8 sm:py-12 md:py-16 transition-colors duration-300 relative overflow-hidden ${
       theme === 'dark' ? 'bg-dark-primary text-dark-secondary' : 'bg-gray-50 text-secondary'
     }`}>
       {/* Background decorative elements */}
@@ -89,26 +89,26 @@ const Testimonials = () => {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          className="text-center mb-6 sm:mb-8"
         >
-          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-4 ${
+          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4 ${
             theme === 'dark' ? 'bg-dark-accent/10 text-dark-accent border border-dark-accent/20' : 'bg-accent/10 text-accent border border-accent/20'
           }`}>
             <span>💬</span>
             <span>Client Testimonials</span>
           </div>
 
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-3 ${
+          <h2 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-bold mb-3 ${
             theme === 'dark' ? 'text-dark-secondary' : 'text-secondary'
           }`}>
             What Our <span className={theme === 'dark' ? 'text-dark-accent' : 'text-accent'}>Clients Say</span>
           </h2>
 
-          <div className={`w-16 h-1 rounded-full mx-auto mb-4 ${
+          <div className={`w-12 sm:w-16 h-1 rounded-full mx-auto mb-3 sm:mb-4 ${
             theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
           }`}></div>
 
-          <p className={`text-base max-w-2xl mx-auto ${
+          <p className={`text-sm sm:text-base max-w-2xl mx-auto ${
             theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
           }`}>
             Don't just take our word for it - hear from our satisfied clients
@@ -116,7 +116,7 @@ const Testimonials = () => {
         </motion.div>
 
         {/* Infinite Scroll Testimonials */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden px-4 sm:px-6">
           <div className="flex animate-scroll">
             {infiniteTestimonials.map((testimonial, index) => (
               <motion.div
@@ -125,14 +125,14 @@ const Testimonials = () => {
                 whileInView={{ y: 0, opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
-                className={`group relative p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 transform flex-shrink-0 w-64 sm:w-72 mx-2 sm:mx-3 ${
+                className={`group relative p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 transform flex-shrink-0 w-56 sm:w-64 mx-2 sm:mx-3 ${
                   theme === 'dark'
                     ? 'bg-dark-gray-100/50 border border-dark-gray-700/50 hover:border-dark-accent/30'
                     : 'bg-white border border-gray-200 hover:border-accent/30'
                 }`}
               >
                 {/* Quote decoration */}
-                <div className={`absolute top-3 right-3 text-3xl sm:text-4xl opacity-10 group-hover:opacity-20 transition-opacity duration-300 ${
+                <div className={`absolute top-2 right-2 text-2xl sm:text-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-300 ${
                   theme === 'dark' ? 'text-dark-accent' : 'text-accent'
                 }`}>
                   "
@@ -140,18 +140,18 @@ const Testimonials = () => {
 
                 {/* Profile section */}
                 <div className="flex items-center mb-3">
-                  <div className="relative mr-2 sm:mr-3">
-                    <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden ring-2 sm:ring-3 ring-white shadow-md">
+                  <div className="relative mr-1.5 sm:mr-2">
+                    <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg overflow-hidden ring-1.5 sm:ring-2 ring-white shadow-md">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.name}
                         fill
                         className="object-cover"
-                        sizes="48px"
+                        sizes="32px"
                       />
                     </div>
                     {/* Online indicator */}
-                    <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-400 border-2 border-white rounded-sm"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-400 border-1.5 sm:border-2 border-white rounded-sm"></div>
                   </div>
 
                   <div className="flex-1">
@@ -165,7 +165,7 @@ const Testimonials = () => {
                         {[...Array(5)].map((_, i) => (
                           <svg
                             key={i}
-                            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                            className={`w-2 h-2 sm:w-2.5 sm:h-2.5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -175,10 +175,10 @@ const Testimonials = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`text-sm ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-500'}`}>
+                      <span className={`text-xs ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-500'}`}>
                         📍 {testimonial.location}
                       </span>
-                      <span className={`text-xs px-2 py-1 rounded-lg ${
+                      <span className={`text-xs px-2 py-0.5 rounded-md ${
                         theme === 'dark' ? 'bg-dark-accent/20 text-dark-accent' : 'bg-accent/20 text-accent'
                       }`}>
                         Verified Client
@@ -188,7 +188,7 @@ const Testimonials = () => {
                 </div>
 
                 {/* Quote */}
-                <blockquote className={`text-xs sm:text-sm leading-relaxed italic mb-2 sm:mb-3 p-2 sm:p-3 rounded-lg border-l-4 ${
+                <blockquote className={`text-xs leading-relaxed italic mb-1.5 sm:mb-2 p-1.5 sm:p-2 rounded-md sm:rounded-lg border-l-2 sm:border-l-4 ${
                   theme === 'dark'
                     ? 'text-dark-gray-300 bg-dark-gray-800/50 border-dark-accent/50'
                     : 'text-gray-700 bg-gray-50 border-accent/50'
@@ -198,7 +198,7 @@ const Testimonials = () => {
 
                 {/* Rating display */}
                 <div className="flex items-center justify-between">
-                  <div className={`flex items-center gap-2 text-xs sm:text-sm ${
+                  <div className={`flex items-center gap-1.5 sm:gap-2 text-xs ${
                     theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-500'
                   }`}>
                     <span>{testimonial.rating}/5 Rating</span>
@@ -206,7 +206,7 @@ const Testimonials = () => {
 
                   {/* Floating action */}
                   <div className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0`}>
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center ${
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg flex items-center justify-center ${
                       theme === 'dark' ? 'bg-dark-accent/20' : 'bg-accent/20'
                     }`}>
                       <span className={`text-sm ${theme === 'dark' ? 'text-dark-accent' : 'text-accent'}`}>✓</span>
@@ -224,10 +224,10 @@ const Testimonials = () => {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-8 sm:mt-12"
+          className="text-center mt-6 sm:mt-8"
         >
           <div className="mb-6">
-            <p className={`text-base sm:text-lg mb-2 font-medium ${
+            <p className={`text-sm sm:text-base mb-2 font-medium ${
               theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-700'
             }`}>
               Ready to join our satisfied clients?
@@ -256,7 +256,7 @@ const Testimonials = () => {
       {/* Custom CSS for infinite scroll */}
       <style jsx>{`
         .animate-scroll {
-          animation: scroll 60s linear infinite;
+          animation: scroll 7s linear infinite;
         }
 
         @keyframes scroll {
