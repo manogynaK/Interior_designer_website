@@ -255,21 +255,28 @@ const Testimonials = () => {
 
       {/* Custom CSS for infinite scroll */}
       <style jsx>{`
-        .animate-scroll {
-          animation: scroll 7s linear infinite;
-        }
-
         @keyframes scroll {
           0% {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-25%);
+            transform: translateX(-33.33%);
           }
+        }
+
+        .animate-scroll {
+          animation: scroll 40s linear infinite;
         }
 
         .animate-scroll:hover {
           animation-play-state: paused;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .animate-scroll {
+            animation-duration: 30s;
+          }
         }
       `}</style>
     </div>
