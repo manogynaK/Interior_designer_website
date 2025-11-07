@@ -18,6 +18,8 @@ const Header = () => {
       return 'contact';
     } else if (pathname === '/work' || pathname.includes('/work')) {
       return 'work';
+    } else if (pathname === '/machinery' || pathname.includes('/machinery')) {
+      return 'machinery';
     } else if (hash.includes('about')) {
       return 'about';
     } else {
@@ -38,7 +40,7 @@ const Header = () => {
       // This prevents scroll detection from overriding route-based active states
       if (router.pathname === '/') {
         // Update active section based on scroll position
-        const sections = ['home', 'about', 'work', 'testimonials', 'contact'];
+        const sections = ['home', 'about', 'work', 'machinery', 'testimonials', 'contact'];
         const currentSection = sections.find(section => {
           const element = document.getElementById(section);
           if (element) {
@@ -160,6 +162,29 @@ const Header = () => {
               >
                 Our Work
                 {mounted && activeSection === 'work' && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
+                      theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
+                    }`}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/machinery"
+                className={`relative transition-all hover:scale-105 transform duration-200 ${
+                  mounted && activeSection === 'machinery'
+                    ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
+                    : mounted
+                      ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
+                      : 'text-gray-600 hover:text-accent'
+                }`}
+              >
+                Machinery
+                {mounted && activeSection === 'machinery' && (
                   <motion.div
                     layoutId="activeTab"
                     className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${

@@ -64,10 +64,12 @@ const Testimonials = () => {
   }, []);
 
   // Create infinite scroll testimonials by duplicating the array
-  const infiniteTestimonials = testimonials.length > 0 ? [...testimonials, ...testimonials, ...testimonials] : [];
+  // Use more duplicates for smoother looping
+  const infiniteTestimonials = testimonials.length > 0 ? 
+    [...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials] : [];
 
   return (
-    <div className={`py-8 sm:py-12 md:py-16 transition-colors duration-300 relative overflow-hidden ${
+    <div className={`py-8 sm:py-12 md:py-16 transition-colors duration-300 relative overflow-hidden px-2 sm:px-4 ${
       theme === 'dark' ? 'bg-dark-primary text-dark-secondary' : 'bg-gray-50 text-secondary'
     }`}>
       {/* Background decorative elements */}
@@ -117,7 +119,12 @@ const Testimonials = () => {
 
         {/* Infinite Scroll Testimonials */}
         <div className="relative overflow-hidden px-4 sm:px-6">
-          <div className="flex animate-scroll">
+          <div className="animate-scroll" style={{
+            // Ensure smooth scrolling on all devices
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none', // Hide scrollbar in Firefox
+            msOverflowStyle: 'none', // Hide scrollbar in IE/Edge
+          }}>
             {infiniteTestimonials.map((testimonial, index) => (
               <motion.div
                 key={`${testimonial.id}-${index}`}
@@ -125,23 +132,23 @@ const Testimonials = () => {
                 whileInView={{ y: 0, opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
-                className={`group relative p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 transform flex-shrink-0 w-56 sm:w-64 mx-2 sm:mx-3 ${
-                  theme === 'dark'
-                    ? 'bg-dark-gray-100/50 border border-dark-gray-700/50 hover:border-dark-accent/30'
-                    : 'bg-white border border-gray-200 hover:border-accent/30'
+                className={`group relative p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 hover:scale-[1.01] transform flex-shrink-0 w-[85vw] sm:w-48 md:w-56 mx-1 sm:mx-2 ${
+                  theme === 'dark' 
+                    ? 'bg-dark-gray-100/80 border border-dark-gray-600/50 hover:border-dark-accent/40'
+                    : 'bg-white/95 border border-gray-200 hover:border-accent/40'
                 }`}
               >
-                {/* Quote decoration */}
-                <div className={`absolute top-2 right-2 text-2xl sm:text-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-300 ${
+                {/* Quote decoration - more subtle on mobile */}
+                <div className={`absolute top-2 right-2 text-xl sm:text-2xl opacity-5 sm:opacity-10 group-hover:opacity-20 transition-opacity duration-300 ${
                   theme === 'dark' ? 'text-dark-accent' : 'text-accent'
                 }`}>
                   "
                 </div>
 
-                {/* Profile section */}
-                <div className="flex items-center mb-3">
-                  <div className="relative mr-1.5 sm:mr-2">
-                    <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg overflow-hidden ring-1.5 sm:ring-2 ring-white shadow-md">
+                {/* Profile section - more compact on mobile */}
+                <div className="flex items-center mb-2 sm:mb-3">
+                  <div className="relative mr-2 sm:mr-2">
+                    <div className="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full sm:rounded-lg overflow-hidden ring-1 sm:ring-2 ring-white shadow-sm">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -156,22 +163,24 @@ const Testimonials = () => {
 
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className={`text-sm sm:text-base font-serif font-bold ${
-                        theme === 'dark' ? 'text-dark-secondary' : 'text-secondary'
-                      }`}>
-                        {testimonial.name}
-                      </h3>
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <svg
-                            key={i}
-                            className={`w-2 h-2 sm:w-2.5 sm:h-2.5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                          </svg>
-                        ))}
+                      <div className="flex flex-col sm:block">
+                        <h3 className={`text-xs sm:text-sm font-sans font-semibold ${
+                          theme === 'dark' ? 'text-dark-secondary' : 'text-secondary'
+                        }`}>
+                          {testimonial.name}
+                        </h3>
+                        <div className="flex items-center mt-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${i < testimonial.rating ? 'text-yellow-400' : theme === 'dark' ? 'text-gray-600' : 'text-gray-300'}`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -187,13 +196,15 @@ const Testimonials = () => {
                   </div>
                 </div>
 
-                {/* Quote */}
-                <blockquote className={`text-xs leading-relaxed italic mb-1.5 sm:mb-2 p-1.5 sm:p-2 rounded-md sm:rounded-lg border-l-2 sm:border-l-4 ${
+                {/* Quote - better spacing and typography */}
+                <blockquote className={`text-xs leading-relaxed mb-2 sm:mb-2 p-2 sm:p-2 rounded-md ${
                   theme === 'dark'
-                    ? 'text-dark-gray-300 bg-dark-gray-800/50 border-dark-accent/50'
-                    : 'text-gray-700 bg-gray-50 border-accent/50'
+                    ? 'text-dark-gray-200 bg-dark-gray-800/30 border-l-2 border-dark-accent/50'
+                    : 'text-gray-700 bg-gray-50/80 border-l-2 border-accent/50'
                 }`}>
-                  "{testimonial.quote}"
+                  <p className="line-clamp-3 sm:line-clamp-4 text-ellipsis">
+                  {testimonial.quote}
+                </p>
                 </blockquote>
 
                 {/* Rating display */}
@@ -260,12 +271,15 @@ const Testimonials = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            /* Calculate based on the number of duplicated items */
+            transform: translateX(calc(-100% / 3 * 2));
           }
         }
 
         .animate-scroll {
-          animation: scroll 40s linear infinite;
+          animation: scroll 30s linear infinite;
+          display: flex;
+          width: 300%;
         }
 
         .animate-scroll:hover {
@@ -273,9 +287,53 @@ const Testimonials = () => {
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
           .animate-scroll {
-            animation-duration: 30s;
+            animation-duration: 40s; /* Slower on mobile for better readability */
+            animation-timing-function: linear;
+            width: 300% !important;
+            padding: 0.5rem 0;
+            gap: 0.75rem;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: subpixel-antialiased;
+          }
+          
+          /* Better scrollbar for mobile */
+          ::-webkit-scrollbar {
+            display: none;
+          }
+          
+          /* Better touch targets */
+          .testimonial-card {
+            min-width: 85vw !important;
+            max-width: 85vw !important;
+            margin: 0 0.5rem;
+            scroll-snap-align: start;
+            scroll-margin: 0 1rem;
+          }
+          
+          .testimonial-content {
+            padding: 0.5rem;
+          }
+          
+          /* Better typography for mobile */
+          .testimonial-text {
+            font-size: 0.8125rem;
+            line-height: 1.4;
+            letter-spacing: 0.01em;
+          }
+          
+          /* Better spacing for mobile */
+          .testimonial-card > * + * {
+            margin-top: 0.5rem;
+          }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1024px) {
+          .testimonial-card {
+            min-width: 14rem;
+            max-width: 14rem;
           }
         }
       `}</style>

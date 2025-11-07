@@ -73,10 +73,11 @@ const FeaturedProjects = () => {
             {/* Scrollable Container */}
             <div className="overflow-hidden">
               <div
-                className="flex gap-3 sm:gap-4 animate-scroll"
+                className="flex gap-2 sm:gap-4 animate-scroll"
                 style={{
-                  width: 'calc(100% * 3)',
-                  animation: 'scroll 40s linear infinite'
+                  width: '300%',
+                  animation: 'scroll 30s linear infinite',
+                  willChange: 'transform'
                 }}
               >
                 {duplicatedProjects.map((project, index) => (
@@ -86,7 +87,7 @@ const FeaturedProjects = () => {
                       whileInView={{ scale: 1, opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: (index % projects.length) * 0.1 }}
-                      className={`group relative w-52 h-64 sm:w-64 sm:h-80 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 cursor-pointer transform hover:-rotate-2 hover:scale-105 ${
+                      className={`group relative w-36 h-48 sm:w-56 sm:h-72 md:w-64 md:h-80 rounded-lg sm:rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-rotate-1 hover:scale-[1.02] ${
                         theme === 'dark'
                           ? 'bg-dark-gray-100 border border-dark-gray-700'
                           : 'bg-white border border-gray-200'
@@ -103,7 +104,8 @@ const FeaturedProjects = () => {
                           alt={project.title}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-                          sizes="208px"
+                          sizes="(max-width: 640px) 160px, 208px"
+                          quality={85}
                           priority={index < 3}
                           loading={index < 3 ? "eager" : "lazy"}
                         />
@@ -174,7 +176,7 @@ const FeaturedProjects = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            transform: translateX(calc(-100% / 3));
           }
         }
 
@@ -192,9 +194,26 @@ const FeaturedProjects = () => {
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
           .animate-scroll {
-            animation-duration: 30s;
+            animation-duration: 20s;
+            width: 300% !important;
+            gap: 0.5rem;
+          }
+          
+          .project-card {
+            min-width: 9rem !important;
+            max-width: 9rem !important;
+            height: 12rem !important;
+            margin: 0 0.15rem;
+          }
+        }
+        
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .project-card {
+            min-width: 12rem !important;
+            max-width: 12rem !important;
+            height: 16rem !important;
           }
         }
       `}</style>

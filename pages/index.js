@@ -8,7 +8,7 @@ import ProcessSection from '../components/ProcessSection';
 const Home = () => {
   return (
     <div>
-      <section id="home" className="pt-20">
+      <section id="home" className="pt-15">
         <div
           className="h-[60vh] md:h-screen flex items-center justify-center bg-cover bg-center relative overflow-hidden"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1616046229478-9901c5536a45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')" }}
@@ -69,20 +69,6 @@ const Home = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </a>
-            </motion.div>
-
-            {/* Scroll indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.2 }}
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            >
-              <div className="animate-bounce">
-                <svg className="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </div>
             </motion.div>
           </div>
         </div>
