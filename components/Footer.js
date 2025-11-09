@@ -18,12 +18,12 @@ const Footer = () => {
             <Link href="/" className={`text-2xl font-serif font-bold mb-4 inline-block ${
               theme === 'dark' ? 'text-dark-accent' : 'text-accent'
             }`}>
-              Meghana Interiors
+              SB Home Zone
             </Link>
             <p className={`text-sm leading-relaxed mb-4 max-w-md ${
               theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'
             }`}>
-              Creating beautiful and functional spaces that reflect your personality and enhance your lifestyle. We specialize in residential and commercial interior design solutions.
+              Creating beautiful and functional spaces that reflect your personality and enhance your lifestyle. We specialize in residential and commercial interior design solutions across Nellore, Tirupati, and Hyderabad.
             </p>
             <div className="flex space-x-4">
               <a
@@ -91,11 +91,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className={`text-sm hover:text-accent transition-colors ${
-                  theme === 'dark' ? 'text-dark-gray-400 hover:text-dark-accent' : 'text-gray-600 hover:text-accent'
-                }`}>
-                  Contact Us
-                </Link>
+                <a
+                  href="mailto:Subbanachari1@gmail.com"
+                  className={`flex items-center text-sm hover:text-accent transition-colors ${
+                    theme === 'dark' ? 'text-dark-gray-400 hover:text-dark-accent' : 'text-gray-600 hover:text-accent'
+                  }`}
+                >  Contact Us
+                </a>
               </li>
             </ul>
           </div>

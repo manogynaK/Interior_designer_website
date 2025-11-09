@@ -67,7 +67,7 @@ const Contact = () => {
                 <strong>Address:</strong> 123 Design St, Creativity City, India
               </p>
               <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>
-                <strong>Email:</strong> contact@meghanainteriors.com
+                <strong>Email:</strong> Subbanachari1@gmail.com
               </p>
               <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>
                 <strong>Phone:</strong> +91 123 456 7890

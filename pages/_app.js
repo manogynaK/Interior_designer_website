@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import '../styles/globals.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -7,6 +8,21 @@ import Layout from '../components/Layout';
 import { ThemeProvider } from '../components/ThemeContext';
 
 function MyApp({ Component, pageProps }) {
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div style={{ visibility: 'hidden' }}>
+        <Component {...pageProps} />
+      </div>
+    );
+  }
+
   return (
     <>
       <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_MEASUREMENT_ID" />

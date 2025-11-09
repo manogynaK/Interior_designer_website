@@ -4,10 +4,11 @@ const ThemeContext = createContext();
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+  if (typeof window !== 'undefined' && !context) {
+    console.warn('useTheme must be used within a ThemeProvider');
+    return { theme: 'light', toggleTheme: () => {} };
   }
-  return context;
+  return context || { theme: 'light', toggleTheme: () => {} };
 };
 
 export const ThemeProvider = ({ children }) => {
@@ -15,41 +16,50 @@ export const ThemeProvider = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-
     // Only run on client side
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(prefersDark ? 'dark' : 'light');
+      }
+    } catch (error) {
+      console.error('Error accessing localStorage:', error);
+    } finally {
+      setMounted(true);
     }
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+    if (typeof window === 'undefined' || !mounted) return;
+    
+    try {
+      const root = document.documentElement;
+      if (theme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+      localStorage.setItem('theme', theme);
+    } catch (error) {
+      console.error('Error updating theme:', error);
     }
-    localStorage.setItem('theme', theme);
   }, [theme, mounted]);
 
   const toggleTheme = () => {
-    if (!mounted) return;
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  // Prevent hydration mismatch by not rendering until mounted
+  // Only provide context when mounted on client
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: 'light', toggleTheme: () => {} }}>
+      <div style={{ visibility: 'hidden' }}>
         {children}
-      </ThemeContext.Provider>
+      </div>
     );
   }
 

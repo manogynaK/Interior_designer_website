@@ -35,7 +35,7 @@ const FeaturedProjects = () => {
           theme === 'dark' ? 'bg-dark-accent/10' : 'bg-accent/10'
         }`}></div>
       </div>
-
+      
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
@@ -61,91 +61,83 @@ const FeaturedProjects = () => {
         </motion.div>
 
         {/* Infinite Scroll Carousel */}
-          <div className="relative px-4 sm:px-6">
-            {/* Gradient overlays for fade effect */}
-            <div className={`absolute -left-4 sm:left-0 top-0 bottom-0 w-12 sm:w-20 z-10 pointer-events-none ${
-              theme === 'dark' ? 'bg-gradient-to-r from-dark-primary to-transparent' : 'bg-gradient-to-r from-white to-transparent'
-            }`}></div>
-            <div className={`absolute -right-4 sm:right-0 top-0 bottom-0 w-12 sm:w-20 z-10 pointer-events-none ${
-              theme === 'dark' ? 'bg-gradient-to-l from-dark-primary to-transparent' : 'bg-gradient-to-l from-white to-transparent'
-            }`}></div>
+        <div className="relative px-4 sm:px-6">
+          {/* Gradient overlays for fade effect */}
+          <div className={`absolute -left-4 sm:left-0 top-0 bottom-0 w-12 sm:w-20 z-10 pointer-events-none ${
+            theme === 'dark' ? 'bg-gradient-to-r from-dark-primary to-transparent' : 'bg-gradient-to-r from-white to-transparent'
+          }`}></div>
+          <div className={`absolute -right-4 sm:right-0 top-0 bottom-0 w-12 sm:w-20 z-10 pointer-events-none ${
+            theme === 'dark' ? 'bg-gradient-to-l from-dark-primary to-transparent' : 'bg-gradient-to-l from-white to-transparent'
+          }`}></div>
 
-            {/* Scrollable Container */}
-            <div className="overflow-hidden">
-              <div
-                className="flex gap-2 sm:gap-4 animate-scroll"
-                style={{
-                  width: '300%',
-                  animation: 'scroll 30s linear infinite',
-                  willChange: 'transform'
-                }}
-              >
-                {duplicatedProjects.map((project, index) => (
-                  <Link key={`${project.id}-${index}`} href="/work" className="block flex-shrink-0">
-                    <motion.div
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: (index % projects.length) * 0.1 }}
-                      className={`group relative w-36 h-48 sm:w-56 sm:h-72 md:w-64 md:h-80 rounded-lg sm:rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-rotate-1 hover:scale-[1.02] ${
-                        theme === 'dark'
-                          ? 'bg-dark-gray-100 border border-dark-gray-700'
-                          : 'bg-white border border-gray-200'
-                      }`}
-                      style={{
-                        perspective: '1000px',
-                        transformStyle: 'preserve-3d'
-                      }}
-                    >
-                      {/* Image Container */}
-                      <div className="relative w-full h-full overflow-hidden rounded-xl sm:rounded-2xl">
-                        <Image
-                          src={project.images[0]}
-                          alt={project.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-                          sizes="(max-width: 640px) 160px, 208px"
-                          quality={85}
-                          priority={index < 3}
-                          loading={index < 3 ? "eager" : "lazy"}
-                        />
+          {/* Scrollable Container */}
+          <div className="overflow-hidden">
+            <div className="flex gap-2 sm:gap-4 animate-scroll">
+              {duplicatedProjects.map((project, index) => (
+                <Link key={`${project.id}-${index}`} href="/work" className="block flex-shrink-0">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: (index % projects.length) * 0.1 }}
+                    className={`group relative w-36 h-48 sm:w-56 sm:h-72 md:w-64 md:h-80 rounded-lg sm:rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-rotate-1 hover:scale-[1.02] ${
+                      theme === 'dark'
+                        ? 'bg-dark-gray-100 border border-dark-gray-700'
+                        : 'bg-white border border-gray-200'
+                    }`}
+                    style={{
+                      perspective: '1000px',
+                      transformStyle: 'preserve-3d'
+                    }}
+                  >
+                    {/* Image Container */}
+                    <div className="relative w-full h-full overflow-hidden rounded-xl sm:rounded-2xl">
+                      <Image
+                        src={project.images[0]}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+                        sizes="(max-width: 640px) 160px, 208px"
+                        quality={85}
+                        priority={index < 3}
+                        loading={index < 3 ? "eager" : "lazy"}
+                      />
 
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                        {/* Category Badge */}
-                        {project.category && (
-                          <div className={`absolute top-2 sm:top-3 left-2 sm:left-3 backdrop-blur-md text-white px-2 sm:px-3 py-1 rounded-full text-xs font-medium border ${
-                            theme === 'dark' ? 'bg-dark-accent/20 border-dark-accent/30' : 'bg-accent/20 border-accent/30'
-                          }`}>
-                            {project.category}
-                          </div>
-                        )}
-
-                        {/* Title Overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                          <h3 className="text-base sm:text-lg font-serif font-bold text-white mb-1 drop-shadow-lg">
-                            {project.title}
-                          </h3>
-                          <div className="flex items-center justify-center space-x-2">
-                            <div className="w-4 sm:w-6 h-0.5 bg-white/60"></div>
-                            <span className="text-white/80 text-xs uppercase tracking-wider">View Project</span>
-                            <div className="w-4 sm:w-6 h-0.5 bg-white/60"></div>
-                          </div>
+                      {/* Category Badge */}
+                      {project.category && (
+                        <div className={`absolute top-2 sm:top-3 left-2 sm:left-3 backdrop-blur-md text-white px-2 sm:px-3 py-1 rounded-full text-xs font-medium border ${
+                          theme === 'dark' ? 'bg-dark-accent/20 border-dark-accent/30' : 'bg-accent/20 border-accent/30'
+                        }`}>
+                          {project.category}
                         </div>
+                      )}
 
-                        {/* Rotating border effect */}
-                        <div className="absolute inset-0 rounded-xl sm:rounded-2xl border-2 border-transparent group-hover:border-accent transition-all duration-500 opacity-0 group-hover:opacity-100">
-                          <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-accent/20 via-transparent to-accent/20 animate-pulse"></div>
+                      {/* Title Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 className="text-base sm:text-lg font-serif font-bold text-white mb-1 drop-shadow-lg">
+                          {project.title}
+                        </h3>
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="w-4 sm:w-6 h-0.5 bg-white/60"></div>
+                          <span className="text-white/80 text-xs uppercase tracking-wider">View Project</span>
+                          <div className="w-4 sm:w-6 h-0.5 bg-white/60"></div>
                         </div>
                       </div>
-                    </motion.div>
-                  </Link>
-                ))}
-              </div>
-            </div>
 
+                      {/* Rotating border effect */}
+                      <div className="absolute inset-0 rounded-xl sm:rounded-2xl border-2 border-transparent group-hover:border-accent transition-all duration-500 opacity-0 group-hover:opacity-100">
+                        <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-accent/20 via-transparent to-accent/20 animate-pulse"></div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
           </div>
+        </div>
 
         {/* CTA Button */}
         <motion.div
@@ -169,7 +161,6 @@ const FeaturedProjects = () => {
         </motion.div>
       </div>
 
-      {/* Custom CSS for infinite scroll animation */}
       <style jsx>{`
         @keyframes scroll {
           0% {
@@ -179,24 +170,34 @@ const FeaturedProjects = () => {
             transform: translateX(calc(-100% / 3));
           }
         }
-
-        .animate-scroll:hover {
-          animation-play-state: paused;
+        
+        @media (max-width: 640px) {
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-100% / 2.5));
+            }
+          }
         }
-
+        
         .animate-scroll {
+          display: flex;
+          width: 300%;
           animation: scroll 40s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-font-smoothing: subpixel-antialiased;
         }
-
-        /* Pause animation on hover */
+        
         .animate-scroll:hover {
           animation-play-state: paused;
         }
-
-        /* Responsive adjustments */
+        
         @media (max-width: 640px) {
           .animate-scroll {
-            animation-duration: 20s;
+            animation-duration: 30s;
             width: 300% !important;
             gap: 0.5rem;
           }

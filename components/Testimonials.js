@@ -271,15 +271,15 @@ const Testimonials = () => {
             transform: translateX(0);
           }
           100% {
-            /* Calculate based on the number of duplicated items */
-            transform: translateX(calc(-100% / 3 * 2));
+            transform: translateX(calc(-100% / 3));
           }
         }
 
         .animate-scroll {
-          animation: scroll 30s linear infinite;
+          animation: scroll 40s linear infinite;
           display: flex;
           width: 300%;
+          will-change: transform;
         }
 
         .animate-scroll:hover {
@@ -289,13 +289,12 @@ const Testimonials = () => {
         /* Responsive adjustments */
         @media (max-width: 640px) {
           .animate-scroll {
-            animation-duration: 40s; /* Slower on mobile for better readability */
+            animation-duration: 30s;
             animation-timing-function: linear;
             width: 300% !important;
             padding: 0.5rem 0;
             gap: 0.75rem;
             will-change: transform;
-            backface-visibility: hidden;
             -webkit-font-smoothing: subpixel-antialiased;
           }
           
