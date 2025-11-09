@@ -3,14 +3,26 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from './ThemeContext';
+import { FiSun, FiMoon } from 'react-icons/fi';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
+  
+  // Safely access theme context
+  let theme = 'light';
+  let toggleTheme = () => {};
+  
+  try {
+    const themeContext = useTheme();
+    theme = themeContext.theme || 'light';
+    toggleTheme = themeContext.toggleTheme || (() => {});
+  } catch (e) {
+    console.warn('Theme context not available, using default theme');
+  }
 
   // Function to determine active section based on current route
   const getActiveSection = (pathname, hash) => {
@@ -78,7 +90,7 @@ const Header = () => {
   }, [router.pathname, router.asPath]);
 
   // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
+  if (typeof window === 'undefined' || !mounted) {
     return (
       <motion.header
         initial={{ y: -100 }}
@@ -88,13 +100,12 @@ const Header = () => {
       >
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-xl md:text-2xl font-serif font-bold">
-            <Link href="/" className={mounted ? (theme === 'dark' ? 'text-gray-300' : 'text-gray-700') : 'text-gray-700'}>
+            <Link href="/" className="text-accent">
               SB Home Zone
             </Link>
           </div>
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse"></div>
-            <div className="w-8 h-8 bg-gray-200 rounded animate-pulse"></div>
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
           </div>
         </div>
       </motion.header>
@@ -102,26 +113,28 @@ const Header = () => {
   }
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        mounted && isScrolled
-          ? theme === 'dark'
-            ? 'bg-dark-primary/95 backdrop-blur-md shadow-2xl'
-            : 'bg-white/95 backdrop-blur-md shadow-2xl'
-          : theme === 'dark'
-            ? 'bg-dark-primary/80 backdrop-blur-sm'
-            : 'bg-white/80 backdrop-blur-sm'
-      }`}
-    >
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-xl md:text-2xl font-serif font-bold">
-          <Link href="/" className={mounted ? (theme === 'dark' ? 'text-dark-accent' : 'text-accent') : 'text-accent'}>
-            SB Home Zone
-          </Link>
-        </div>
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          mounted && isScrolled
+            ? theme === 'dark'
+              ? 'bg-dark-primary/95 backdrop-blur-md shadow-2xl'
+              : 'bg-white/95 backdrop-blur-md shadow-2xl'
+            : theme === 'dark'
+              ? 'bg-dark-primary/80 backdrop-blur-sm'
+              : 'bg-white/80 backdrop-blur-sm'
+        }`}
+      >
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div className="text-xl md:text-2xl font-serif font-bold">
+              <Link href="/" className={mounted ? (theme === 'dark' ? 'text-dark-accent' : 'text-accent') : 'text-accent'}>
+                SB Home Zone
+              </Link>
+            </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:block">
@@ -241,46 +254,34 @@ const Header = () => {
                 )}
               </Link>
             </li>
+            <li className="flex items-center ml-4">
+              <button
+                onClick={toggleTheme}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none"
+                style={{
+                  backgroundColor: theme === 'dark' ? '#4f46e5' : '#d1d5db',
+                }}
+              >
+                <span className="sr-only">Toggle theme</span>
+                <span
+                  className={`${
+                    theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
+                  } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
+                >
+                  {theme === 'dark' ? (
+                    <FiSun className="h-3 w-3 text-yellow-300 m-0.5" />
+                  ) : (
+                    <FiMoon className="h-3 w-3 text-gray-600 m-0.5" />
+                  )}
+                </span>
+              </button>
+            </li>
           </ul>
         </nav>
-
-        {/* Theme Toggle & Mobile Menu */}
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={toggleTheme}
-            className={`p-2 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-              mounted
-                ? (theme === 'dark'
-                  ? 'bg-dark-gray-700 text-yellow-300 hover:bg-dark-gray-600 focus:ring-yellow-400'
-                  : 'bg-gray-100 text-yellow-600 hover:bg-gray-200 focus:ring-yellow-400')
-                : 'bg-gray-100 text-yellow-600 hover:bg-gray-200'
-            }`}
-            aria-label="Toggle theme"
-          >
-            {mounted ? (
-              theme === 'dark' ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-              )
-            ) : (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-              </svg>
-            )}
-          </button>
-
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden transition-colors hover:scale-105 transform duration-200 ${
-              mounted
-                ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
-                : 'text-gray-600 hover:text-accent'
-            }`}
+            className="md:hidden p-2 rounded-md focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -290,22 +291,23 @@ const Header = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
-          </button>
-        </div>
-      </div>
+              </button>
+            </div>
+          </div>
+        </motion.header>
 
-      {/* Mobile Navigation Menu */}
-      {isMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className={`md:hidden ${
-            mounted
-              ? (theme === 'dark' ? 'bg-dark-primary/95' : 'bg-white/95')
-              : 'bg-white/95'
-          }`}
-        >
+        {/* Mobile Navigation Menu */}
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className={`md:hidden fixed top-20 left-0 right-0 z-40 ${
+              mounted
+                ? (theme === 'dark' ? 'bg-dark-primary/95' : 'bg-white/95')
+                : 'bg-white/95'
+            }`}
+          >
           <nav className="container mx-auto px-6 py-4">
             <ul className={`flex flex-col space-y-4 font-sans text-lg ${
               mounted
@@ -327,7 +329,7 @@ const Header = () => {
                     <motion.div
                       layoutId="mobileActiveTab"
                       className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                        theme === 'dark' ? 'bg-dark-accent' : 'bg-gray-600'
+                        theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
                       }`}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -349,7 +351,7 @@ const Header = () => {
                     <motion.div
                       layoutId="mobileActiveTab"
                       className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                        theme === 'dark' ? 'bg-dark-accent' : 'bg-gray-600'
+                        theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
                       }`}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -371,7 +373,7 @@ const Header = () => {
                     <motion.div
                       layoutId="mobileActiveTab"
                       className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                        theme === 'dark' ? 'bg-dark-accent' : 'bg-gray-600'
+                        theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
                       }`}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -393,7 +395,7 @@ const Header = () => {
                     <motion.div
                       layoutId="mobileActiveTab"
                       className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                        theme === 'dark' ? 'bg-dark-accent' : 'bg-gray-600'
+                        theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
                       }`}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -405,7 +407,7 @@ const Header = () => {
                   href="/contact"
                   className={`relative block hover:scale-105 transform duration-200 ${
                     mounted && activeSection === 'contact'
-                      ? theme === 'dark' ? 'text-dark-accent' : 'text-accent hover:text-gray-700'
+                      ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
                       : 'hover:text-accent'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
@@ -415,7 +417,7 @@ const Header = () => {
                     <motion.div
                       layoutId="mobileActiveTab"
                       className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                        theme === 'dark' ? 'bg-dark-accent' : 'bg-gray-600'
+                        theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
                       }`}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -423,10 +425,10 @@ const Header = () => {
                 </Link>
               </li>
             </ul>
-          </nav>
-        </motion.div>
-      )}
-    </motion.header>
+            </nav>
+          </motion.div>
+        )}
+      </>
   );
 };
 

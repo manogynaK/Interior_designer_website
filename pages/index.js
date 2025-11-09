@@ -24,19 +24,16 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/50"></div>
 
           <div className="text-center relative z-10 max-w-5xl mx-auto px-6">
-            <motion.div
+            <motion.h1
               initial={{ y: 50, opacity: 0, scale: 0.9 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2, type: "spring", stiffness: 100 }}
-              className="max-w-4xl mx-auto"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-200 mb-2 leading-tight">
-                SB Home Zone
-              </h1>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-accent-light mb-6 leading-tight">
-                Your Trusted Interior Partner
-              </h2>
-            </motion.div>
+              SB Home Zone
+              <br />
+              <span className="text-heading-gold">Your Trusted Interior Partner</span>
+            </motion.h1>
 
             <motion.p
               initial={{ y: 30, opacity: 0 }}

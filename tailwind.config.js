@@ -8,45 +8,44 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Light mode colors - Elephant Grey Theme
-        'primary': '#f8f9fa',         // Off-white
-        'secondary': '#2c3e50',       // Dark slate
-        'accent': '#6c757d',          // Medium grey
-        'accent-hover': '#5a6268',    // Slightly darker grey for hover
-        'accent-light': '#a0aec0',    // Light grey for highlights
-        'accent-lighter': '#cbd5e0',  // Very light grey
-        'accent-lightest': '#edf2f7', // Subtle grey tint
-        'heading-grey': '#4a5568',    // Darker grey for headings
-        'light-gray': '#f1f5f9',
-        'gray-50': '#f8fafc',
-        'gray-100': '#f1f5f9',
-        'gray-200': '#e2e8f0',
-        'gray-300': '#cbd5e1',
-        'gray-400': '#94a3b8',
-        'gray-500': '#64748b',
-        'gray-600': '#475569',
-        'gray-700': '#334155',
-        'gray-800': '#1e293b',
-        'gray-900': '#0f172a',
-        'dark': '#0f172a',
-        'dark-gray': '#1e293b',
-
-        // Dark mode colors - Pure Grey Theme
-        'dark-primary': '#121212',     // Dark grey
-        'dark-secondary': '#e0e0e0',   // Light grey
-        'dark-accent': '#9e9e9e',      // Medium grey
-        'dark-accent-hover': '#bdbdbd',// Light grey for hover
-        'dark-accent-dark': '#757575', // Darker grey
-        'dark-accent-darker': '#424242',// Even darker grey
-        'dark-gray-100': '#1a1a1a',
-        'dark-gray-200': '#2a2a2a',
-        'dark-gray-300': '#3a3a3a',
-        'dark-gray-400': '#5a5a5a',
-        'dark-gray-500': '#7a7a7a',
-        'dark-gray-600': '#9a9a9a',
-        'dark-gray-700': '#bababa',
-        'dark-gray-800': '#dadada',
-        'dark-gray-900': '#f5f5f5',
+        // Light mode colors
+        'primary': '#ffffff',
+        'secondary': '#1a1a1a',
+        'accent': '#E1AD01',        // Rich Gold
+        'accent-hover': '#F0C14B',   // Slightly lighter gold for hover
+        'accent-light': '#F5D06E',   // Light gold for highlights
+        'accent-lighter': '#FAE4A7', // Very light gold
+        'accent-lightest': '#FDF5D9', // Subtle gold tint
+        'heading-gold': '#C99900',   // Slightly darker gold for headings
+        'light-gray': '#f8f8f8',
+        'gray-50': '#f9f9f9',
+        'gray-100': '#f0f0f0',
+        'gray-200': '#e0e0e0',
+        'gray-300': '#c8c8c8',
+        'gray-400': '#a0a0a0',
+        'gray-500': '#787878',
+        'gray-600': '#585858',
+        'gray-700': '#404040',
+        'gray-800': '#282828',
+        'gray-900': '#181818',
+        // Dark mode colors
+        'dark-primary': '#121212',
+        'dark-secondary': '#f5f5f5',
+        'dark-accent': '#FCDB6D',      // Brighter gold for dark mode
+        'dark-accent-hover': '#FDEB9E', // Lighter gold for hover
+        'dark-accent-dark': '#F7C319',  // Base gold for contrast
+        'dark-accent-darker': '#d4a515', // Darker shade for depth
+        'dark-light-gray': '#1e1e1e',
+        'dark-gray-50': '#1a1a1a',
+        'dark-gray-100': '#2a2a2a',
+        'dark-gray-200': '#3a3a3a',
+        'dark-gray-300': '#4a4a4a',
+        'dark-gray-400': '#6a6a6a',
+        'dark-gray-500': '#8a8a8a',
+        'dark-gray-600': '#aaaaaa',
+        'dark-gray-700': '#cacaca',
+        'dark-gray-800': '#e0e0e0',
+        'dark-gray-900': '#f0f0f0',
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
