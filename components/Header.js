@@ -100,25 +100,12 @@ const Header = () => {
       >
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-xl md:text-2xl font-serif font-bold">
-              <Link href="/" className="text-accent dark:text-dark-accent">
-                SB Home Zone
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              {/* Theme Toggle for Mobile */}
-              <button
-                onClick={toggleTheme}
-                className="md:hidden p-2 rounded-full focus:outline-none"
-                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              >
-                {theme === 'dark' ? (
-                  <FiSun className="w-5 h-5 text-yellow-500" />
-                ) : (
-                  <FiMoon className="w-5 h-5 text-gray-600" />
-                )}
-              </button>
-              <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse md:hidden"></div>
+            <div className="flex items-center">
+              <div className="text-xl md:text-2xl font-serif font-bold">
+                <Link href="/" className="text-accent dark:text-dark-accent">
+                  SB Home Zone
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -293,19 +280,34 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-md focus:outline-none"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          {/* Mobile Menu Button and Theme Toggle - Only visible on mobile */}
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Theme Toggle for Mobile */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full focus:outline-none"
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <FiSun className="w-5 h-5 text-yellow-500" />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <FiMoon className="w-5 h-5 text-gray-600" />
               )}
-            </svg>
-              </button>
+            </button>
+            
+            <button
+              className="p-2 rounded-md focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
             </div>
           </div>
         </motion.header>
