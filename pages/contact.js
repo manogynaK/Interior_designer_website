@@ -62,16 +62,63 @@ const Contact = () => {
             }`}>
               Have a project in mind? We'd love to hear from you. Fill out the form and we'll get back to you as soon as possible.
             </p>
-            <div className="space-y-2">
-              <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>
-                <strong>Address:</strong> 123 Design St, Creativity City, India
-              </p>
-              <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>
-                <strong>Email:</strong> Subbanachari1@gmail.com
-              </p>
-              <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>
-                <strong>Phone:</strong> +91 123 456 7890
-              </p>
+            <div className="space-y-6">
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-dark-gray-700' : 'bg-gray-50'} hover:shadow-md transition-shadow`}>
+                <h3 className="font-bold text-lg mb-2">Nellore</h3>
+                <a 
+                  href="https://maps.app.goo.gl/bxTonSiAKzQP9S1a6" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  View on Map
+                </a>
+              </div>
+
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-dark-gray-700' : 'bg-gray-50'} hover:shadow-md transition-shadow`}>
+                <h3 className="font-bold text-lg mb-2">Hyderabad</h3>
+                <a 
+                  href="https://www.google.com/maps/search/sb+home+zone+hyderabad/@17.4764322,78.2995605,15z/data=!3m1!4b1?entry=ttu" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  View on Map
+                </a>
+              </div>
+
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-dark-gray-700' : 'bg-gray-50'} hover:shadow-md transition-shadow`}>
+                <h3 className="font-bold text-lg mb-2">Tirupati</h3>
+                <a 
+                  href="https://maps.app.goo.gl/def789" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  View on Map
+                </a>
+              </div>
+
+              <div className="pt-4 border-t border-gray-200 dark:border-dark-gray-600">
+                <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'} mb-2`}>
+                  <strong>Email:</strong> Subbanachari1@gmail.com
+                </p>
+                <p className={`font-sans ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-600'}`}>
+                  <strong>Phone:</strong> +91 123 456 7890
+                </p>
+              </div>
             </div>
           </motion.div>
           <motion.div

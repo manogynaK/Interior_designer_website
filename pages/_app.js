@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import '../styles/globals.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -6,6 +6,17 @@ import 'swiper/css/pagination';
 import Script from 'next/script';
 import Layout from '../components/Layout';
 import { ThemeProvider } from '../components/ThemeContext';
+import ChatButton from '../components/ChatButton';
+
+// Wrapper component that has access to the theme
+function ThemedApp({ Component, pageProps }) {
+  return (
+    <Layout>
+      <Component {...pageProps} />
+      <ChatButton />
+    </Layout>
+  );
+}
 
 function MyApp({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
@@ -39,9 +50,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       <ThemeProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ThemedApp Component={Component} pageProps={pageProps} />
       </ThemeProvider>
     </>
   );

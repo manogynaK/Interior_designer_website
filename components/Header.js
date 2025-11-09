@@ -96,16 +96,30 @@ const Header = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-2xl"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-2xl dark:bg-dark-primary/95"
       >
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-xl md:text-2xl font-serif font-bold">
-            <Link href="/" className="text-accent">
-              SB Home Zone
-            </Link>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div className="text-xl md:text-2xl font-serif font-bold">
+              <Link href="/" className="text-accent dark:text-dark-accent">
+                SB Home Zone
+              </Link>
+            </div>
+            <div className="flex items-center space-x-4">
+              {/* Theme Toggle for Mobile */}
+              <button
+                onClick={toggleTheme}
+                className="md:hidden p-2 rounded-full focus:outline-none"
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              >
+                {theme === 'dark' ? (
+                  <FiSun className="w-5 h-5 text-yellow-500" />
+                ) : (
+                  <FiMoon className="w-5 h-5 text-gray-600" />
+                )}
+              </button>
+              <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse md:hidden"></div>
+            </div>
           </div>
         </div>
       </motion.header>
@@ -270,7 +284,7 @@ const Header = () => {
                   } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
                 >
                   {theme === 'dark' ? (
-                    <FiSun className="h-3 w-3 text-yellow-300 m-0.5" />
+                    <FiSun className="h-3 w-3 text-yellow-500 m-0.5" />
                   ) : (
                     <FiMoon className="h-3 w-3 text-gray-600 m-0.5" />
                   )}

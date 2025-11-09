@@ -6,44 +6,18 @@ const machinery = [
   { 
     id: 1, 
     name: 'CNC Router', 
-    description: 'High-precision 5-axis CNC router for intricate woodworking and furniture making. Capable of handling materials up to 8x4 feet with 0.1mm accuracy.',
+    description: 'High-precision CNC router for intricate woodworking and furniture making. Perfect for custom designs and detailed carvings.',
     specs: [
       '5-axis precision cutting',
       '8x4 feet working area',
       '0.1mm accuracy',
-      'Variable speed up to 24,000 RPM',
+      'Ideal for MDF, plywood, and solid wood',
       'Dust collection system'
     ],
-    image: 'https://images.unsplash.com/photo-1562813633-19c2a2b7c4b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80' 
+    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
   },
   { 
     id: 2, 
-    name: 'Laser Cutter', 
-    description: 'High-power CO2 laser cutting system for precision engraving and cutting of wood, acrylic, and other materials with exceptional detail.',
-    specs: [
-      '100W CO2 laser tube',
-      '48x36 inch work area',
-      '0.01mm engraving precision',
-      'Air assist system',
-      'Automatic focus'
-    ],
-    image: 'https://images.unsplash.com/photo-1621999818131-317034551a6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80' 
-  },
-  { 
-    id: 3, 
-    name: '3D Printer', 
-    description: 'Industrial-grade 3D printing system for rapid prototyping and creating custom decorative elements with various materials.',
-    specs: [
-      'Large 400x400x500mm build volume',
-      'Dual extruder system',
-      '0.05mm layer resolution',
-      'Heated build plate',
-      'Supports multiple materials'
-    ],
-    image: 'https://images.unsplash.com/photo-1617791160536-598cf816f9a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80' 
-  },
-  { 
-    id: 4, 
     name: 'Edge Banding Machine', 
     description: 'Automatic edge banding system for applying edge banding to panels with perfect precision and finish.',
     specs: [
@@ -53,10 +27,10 @@ const machinery = [
       'Digital temperature control',
       'Up to 12m/min speed'
     ],
-    image: 'https://images.unsplash.com/photo-1531973576160-7125b691bbd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://images.unsplash.com/photo-1600585154340-4e2d8e8cff2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
   },
   { 
-    id: 5, 
+    id: 3, 
     name: 'Panel Saw', 
     description: 'Heavy-duty sliding table panel saw for precise cutting of large panels and sheets with clean edges.',
     specs: [
@@ -69,7 +43,7 @@ const machinery = [
     image: 'https://images.unsplash.com/photo-1595437193396-180f342b19af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
   },
   { 
-    id: 6, 
+    id: 4, 
     name: 'Spray Booth', 
     description: 'Professional spray finishing booth with proper ventilation and lighting for flawless paint and finish application.',
     specs: [
@@ -80,6 +54,32 @@ const machinery = [
       'Fire suppression system'
     ],
     image: 'https://images.unsplash.com/photo-1583845112202-803a1840f1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+  },
+  { 
+    id: 5, 
+    name: 'Sanding Machine', 
+    description: 'Wide belt sanding machine for achieving smooth surfaces on wood panels and furniture components.',
+    specs: [
+      '37-inch working width',
+      'Variable speed control',
+      'Dust extraction ports',
+      'Multiple sanding heads',
+      'Digital thickness gauge'
+    ],
+    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+  },
+  { 
+    id: 6, 
+    name: 'Drilling Machine', 
+    description: 'Precision drilling machine for creating accurate holes in panels and furniture components.',
+    specs: [
+      'Multi-spindle drilling',
+      'CNC controlled',
+      'Adjustable drilling depth',
+      'Dust collection system',
+      'Touchscreen interface'
+    ],
+    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
   }
 ];
 
