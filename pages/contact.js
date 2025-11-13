@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { useTheme } from '../components/ThemeContext';
@@ -8,6 +9,56 @@ const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', phone: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { theme } = useTheme();
+  const router = useRouter();
+
+  // Force scroll to top when component mounts
+  useEffect(() => {
+    // Function to handle scrolling
+    const scrollToTop = () => {
+      try {
+        // Try different methods to ensure it works
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // If we're at the top, scroll up a tiny bit and back to trigger any lazy loading
+        if (window.pageYOffset === 0) {
+          window.scrollBy(0, 1);
+          setTimeout(() => window.scrollTo(0, 0), 0);
+        }
+      } catch (e) {
+        console.error('Error scrolling to top:', e);
+      }
+    };
+
+    // Scroll immediately
+    scrollToTop();
+    
+    // Scroll after a short delay to ensure all content is loaded
+    const timer1 = setTimeout(scrollToTop, 50);
+    const timer2 = setTimeout(scrollToTop, 150);
+    const timer3 = setTimeout(scrollToTop, 300);
+    
+    // Handle browser back/forward
+    window.onpopstate = () => {
+      scrollToTop();
+    };
+    
+    // Also handle route changes
+    const handleRouteChange = () => {
+      scrollToTop();
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      window.onpopstate = null;
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;

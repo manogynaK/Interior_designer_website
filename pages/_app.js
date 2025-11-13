@@ -1,4 +1,5 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import '../styles/globals.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -7,9 +8,13 @@ import Script from 'next/script';
 import Layout from '../components/Layout';
 import { ThemeProvider } from '../components/ThemeContext';
 import ChatButton from '../components/ChatButton';
+import useScrollToTop from '../hooks/useScrollToTop';
 
 // Wrapper component that has access to the theme
 function ThemedApp({ Component, pageProps }) {
+  // Use the scroll to top hook
+  useScrollToTop();
+  
   return (
     <Layout>
       <Component {...pageProps} />
@@ -19,11 +24,26 @@ function ThemedApp({ Component, pageProps }) {
 }
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch
+  // Handle scroll to top on route change
   useEffect(() => {
+    const handleRouteChange = () => {
+      window.scrollTo(0, 0);
+    };
+
+    // Subscribe to route changes
+    router.events.on('routeChangeComplete', handleRouteChange);
+    
+    // Initial scroll to top
+    window.scrollTo(0, 0);
     setMounted(true);
+
+    // Cleanup
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
   }, []);
 
   if (!mounted) {
@@ -50,7 +70,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       <ThemeProvider>
-        <ThemedApp Component={Component} pageProps={pageProps} />
+        <ThemedApp Component={Component} {...pageProps} />
       </ThemeProvider>
     </>
   );

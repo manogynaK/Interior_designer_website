@@ -15,7 +15,13 @@ const ChatButton = ({ theme = 'light' }) => {
   const isDark = theme === 'dark';
 
   const handleClick = () => {
-    router.push('/contact');
+    if (router.pathname === '/contact') {
+      // If already on contact page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Otherwise, navigate to contact page
+      router.push('/contact');
+    }
   };
 
   useEffect(() => {

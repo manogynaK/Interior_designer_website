@@ -14,7 +14,7 @@ const machinery = [
       'Ideal for MDF, plywood, and solid wood',
       'Dust collection system'
     ],
-    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://www.woodstar.in/wp-content/uploads/2024/07/Woodstar-CNC-Router-Double-Spindle-1525D-ST-ECO.jpg'
   },
   { 
     id: 2, 
@@ -27,7 +27,7 @@ const machinery = [
       'Digital temperature control',
       'Up to 12m/min speed'
     ],
-    image: 'https://images.unsplash.com/photo-1600585154340-4e2d8e8cff2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://www.homag.com/fileadmin/product/edge/machines/homag-edge-edgeteq-s-360-cn-01.jpg'
   },
   { 
     id: 3, 
@@ -40,7 +40,7 @@ const machinery = [
       'Dust extraction',
       'Digital angle display'
     ],
-    image: 'https://images.unsplash.com/photo-1595437193396-180f342b19af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://img.freepik.com/free-photo/front-view-carpentry-tool-machine_23-2148748798.jpg'
   },
   { 
     id: 4, 
@@ -53,7 +53,7 @@ const machinery = [
       'Overspray filtration',
       'Fire suppression system'
     ],
-    image: 'https://images.unsplash.com/photo-1583845112202-803a1840f1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://lirp.cdn-website.com/d306ef4f/dms3rep/multi/opt/IMG_4645+%281%29-640w.jpg'
   },
   { 
     id: 5, 
@@ -66,7 +66,7 @@ const machinery = [
       'Multiple sanding heads',
       'Digital thickness gauge'
     ],
-    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://img.mirka.com/contenthubprod/globalassets/mirkacom/2-wood/applications/sanding-wooden-doors-and-windows/sanding_doors_windows_banner_2000x1125.jpg'
   },
   { 
     id: 6, 
@@ -79,7 +79,7 @@ const machinery = [
       'Dust collection system',
       'Touchscreen interface'
     ],
-    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    image: 'https://www.blum.com/corporate/media/bilder/produkte/verarbeitungshilfen/me176486_aa_fot_fo_bau_-sall_-amc_-v1_stageimagelarge.jpg'
   }
 ];
 

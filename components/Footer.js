@@ -91,13 +91,19 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a
-                  href="mailto:Subbanachari1@gmail.com"
+                <Link
+                  href="/contact"
+                  onClick={(e) => {
+                    if (window.location.pathname === '/contact') {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
                   className={`flex items-center text-sm hover:text-accent transition-colors ${
                     theme === 'dark' ? 'text-dark-gray-400 hover:text-dark-accent' : 'text-gray-600 hover:text-accent'
                   }`}
                 >  Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from './ThemeContext';
 import { FiSun, FiMoon } from 'react-icons/fi';
+import Image from 'next/image';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,17 +13,8 @@ const Header = () => {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   
-  // Safely access theme context
-  let theme = 'light';
-  let toggleTheme = () => {};
-  
-  try {
-    const themeContext = useTheme();
-    theme = themeContext.theme || 'light';
-    toggleTheme = themeContext.toggleTheme || (() => {});
-  } catch (e) {
-    console.warn('Theme context not available, using default theme');
-  }
+  // Access theme context
+  const { theme, toggleTheme } = useTheme();
 
   // Function to determine active section based on current route
   const getActiveSection = (pathname, hash) => {
@@ -131,10 +123,29 @@ const Header = () => {
       >
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-xl md:text-2xl font-serif font-bold">
-              <Link href="/" className={mounted ? (theme === 'dark' ? 'text-dark-accent' : 'text-accent') : 'text-accent'}>
-                SB Home Zone
-              </Link>
+            <div className="flex items-center space-x-2">
+              {/* Logo with Text */}
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 md:w-16 md:h-16 relative">
+                  <Link href="/">
+                    <Image 
+                      src="https://i.postimg.cc/9MxT22GX/logo-meghana.jpg" 
+                      alt="SB Home Zone Logo" 
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-contain"
+                      priority
+                    />
+                  </Link>
+                </div>
+                <div className="hidden md:block">
+                  <Link href="/">
+                    <h1 className={`text-xl font-bold font-serif ${theme === 'dark' ? 'text-white hover:text-dark-accent' : 'text-gray-900 hover:text-accent'} transition-colors duration-200`}>
+                      SB Home Zone
+                    </h1>
+                  </Link>
+                </div>
+              </div>
             </div>
 
         {/* Desktop Navigation */}
@@ -235,6 +246,13 @@ const Header = () => {
             <li>
               <Link
                 href="/contact"
+                onClick={(e) => {
+                  // Only handle the click if we're already on the contact page
+                  if (router.pathname === '/contact') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
                 className={`relative transition-all hover:scale-105 transform duration-200 ${
                   mounted && activeSection === 'contact'
                     ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
