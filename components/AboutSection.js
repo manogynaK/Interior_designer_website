@@ -103,10 +103,10 @@ const AboutSection = () => {
               About{' '}
               <span
                 className={
-                  theme === 'dark' ? 'text-dark-accent' : 'text-accent'
+                  theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
                 }
               >
-                Meghana Interiors
+                SB Home Zone
               </span>
             </h2>
 

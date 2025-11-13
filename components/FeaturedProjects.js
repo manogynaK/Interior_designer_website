@@ -54,7 +54,7 @@ const FeaturedProjects = () => {
             theme === 'dark' ? 'bg-dark-accent' : 'bg-accent'
           }`}></div>
           <p className={`text-base max-w-xl mx-auto ${
-            theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+            theme === 'dark' ? 'text-flagstone' : 'text-lucky-grey'
           }`}>
             Explore our stunning interior transformations
           </p>

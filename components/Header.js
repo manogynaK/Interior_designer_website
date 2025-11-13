@@ -111,14 +111,14 @@ const Header = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          mounted && isScrolled
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          isScrolled
             ? theme === 'dark'
-              ? 'bg-dark-primary/95 backdrop-blur-md shadow-2xl'
-              : 'bg-white/95 backdrop-blur-md shadow-2xl'
+              ? 'bg-balsamic/95 backdrop-blur-md shadow-2xl border-b border-iron'
+              : 'bg-white/95 backdrop-blur-md shadow-2xl border-b border-flagstone'
             : theme === 'dark'
-              ? 'bg-dark-primary/80 backdrop-blur-sm'
-              : 'bg-white/80 backdrop-blur-sm'
+              ? 'bg-balsamic/90 backdrop-blur-sm border-b border-iron/30'
+              : 'bg-white/90 backdrop-blur-sm border-b border-flagstone/30'
         }`}
       >
         <div className="container mx-auto px-6 py-4">
@@ -140,7 +140,11 @@ const Header = () => {
                 </div>
                 <div className="hidden md:block">
                   <Link href="/">
-                    <h1 className={`text-xl font-bold font-serif ${theme === 'dark' ? 'text-white hover:text-dark-accent' : 'text-gray-900 hover:text-accent'} transition-colors duration-200`}>
+                    <h1 className={`text-xl font-bold font-serif ${
+                      theme === 'dark' 
+                        ? 'text-flagstone hover:text-tin' 
+                        : 'text-balsamic hover:text-lucky-grey'
+                    } transition-colors duration-200`}>
                       SB Home Zone
                     </h1>
                   </Link>
@@ -155,11 +159,11 @@ const Header = () => {
               <Link
                 href="/"
                 className={`relative transition-all hover:scale-105 transform duration-200 ${
-                  mounted && activeSection === 'home'
-                    ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
-                    : mounted
-                      ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
-                      : 'text-gray-600 hover:text-accent'
+                  activeSection === 'home'
+                    ? theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
+                    : theme === 'dark' 
+                      ? 'text-tin hover:text-flagstone' 
+                      : 'text-lucky-grey hover:text-balsamic'
                 }`}
               >
                 Home
@@ -178,11 +182,11 @@ const Header = () => {
               <Link
                 href="/work"
                 className={`relative transition-all hover:scale-105 transform duration-200 ${
-                  mounted && activeSection === 'work'
-                    ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
-                    : mounted
-                      ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
-                      : 'text-gray-600 hover:text-accent'
+                  activeSection === 'work'
+                    ? theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
+                    : theme === 'dark' 
+                      ? 'text-tin hover:text-flagstone' 
+                      : 'text-lucky-grey hover:text-balsamic'
                 }`}
               >
                 Our Work
@@ -201,11 +205,11 @@ const Header = () => {
               <Link
                 href="/machinery"
                 className={`relative transition-all hover:scale-105 transform duration-200 ${
-                  mounted && activeSection === 'machinery'
-                    ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
-                    : mounted
-                      ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
-                      : 'text-gray-600 hover:text-accent'
+                  activeSection === 'machinery'
+                    ? theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
+                    : theme === 'dark' 
+                      ? 'text-tin hover:text-flagstone' 
+                      : 'text-lucky-grey hover:text-balsamic'
                 }`}
               >
                 Machinery
@@ -224,11 +228,11 @@ const Header = () => {
               <Link
                 href="/#about"
                 className={`relative transition-all hover:scale-105 transform duration-200 ${
-                  mounted && activeSection === 'about'
-                    ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
-                    : mounted
-                      ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
-                      : 'text-gray-600 hover:text-accent'
+                  activeSection === 'about'
+                    ? theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
+                    : theme === 'dark' 
+                      ? 'text-tin hover:text-flagstone' 
+                      : 'text-lucky-grey hover:text-balsamic'
                 }`}
               >
                 About
@@ -254,11 +258,11 @@ const Header = () => {
                   }
                 }}
                 className={`relative transition-all hover:scale-105 transform duration-200 ${
-                  mounted && activeSection === 'contact'
-                    ? theme === 'dark' ? 'text-dark-accent' : 'text-accent'
-                    : mounted
-                      ? (theme === 'dark' ? 'text-dark-gray-300 hover:text-dark-accent' : 'text-gray-600 hover:text-accent')
-                      : 'text-gray-600 hover:text-accent'
+                  activeSection === 'contact'
+                    ? theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
+                    : theme === 'dark' 
+                      ? 'text-tin hover:text-flagstone' 
+                      : 'text-lucky-grey hover:text-balsamic'
                 }`}
               >
                 Contact
@@ -277,21 +281,20 @@ const Header = () => {
               <button
                 onClick={toggleTheme}
                 aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none"
-                style={{
-                  backgroundColor: theme === 'dark' ? '#4f46e5' : '#d1d5db',
-                }}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+                  theme === 'dark' ? 'bg-iron' : 'bg-flagstone'
+                }`}
               >
                 <span className="sr-only">Toggle theme</span>
                 <span
-                  className={`${
+                  className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform duration-200 ${
                     theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
-                  } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
+                  }`}
                 >
                   {theme === 'dark' ? (
-                    <FiSun className="h-3 w-3 text-yellow-500 m-0.5" />
+                    <FiSun className="h-3 w-3 m-1 text-flagstone" />
                   ) : (
-                    <FiMoon className="h-3 w-3 text-gray-600 m-0.5" />
+                    <FiMoon className="h-3 w-3 m-1 text-iron" />
                   )}
                 </span>
               </button>
