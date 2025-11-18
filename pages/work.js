@@ -160,11 +160,11 @@ const Work = () => {
                       </div>
 
                       <div className={`text-base md:text-lg leading-relaxed mb-6 ${
-                        theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                       }`}>
                         {(() => {
                           const desc = project.description;
-                          if (!desc) return <p className={`text-sm ${theme === 'dark' ? 'text-dark-gray-400' : 'text-gray-500'}`}>No description available.</p>;
+                          if (!desc) return <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>No description available.</p>;
                           const descStr = typeof desc === 'string' ? desc : String(desc);
                           return descStr.split('\n').map((paragraph, idx) => (
                             <p key={idx} className="mb-4 last:mb-0">

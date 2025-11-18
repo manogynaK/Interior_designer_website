@@ -48,7 +48,7 @@ const Admin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     // Simple password check - in production, use proper authentication
-    if (password === 'admin123') {
+    if (password === 'admin@123') {
       setIsAuthenticated(true);
       setLoginError('');
     } else {
@@ -199,8 +199,8 @@ const Admin = () => {
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="password" className={`block text-sm font-medium mb-2 ${
-                theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-700'
+              <label htmlFor="password" className={`block font-serif font-bold text-lg mb-3 ${
+                theme === 'dark' ? 'text-dark-secondary' : 'text-secondary'
               }`}>
                 Password
               </label>
@@ -213,7 +213,7 @@ const Admin = () => {
                   required
                   className={`w-full px-4 py-3 pr-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors ${
                     theme === 'dark'
-                      ? 'bg-dark-gray-700 border-dark-gray-600 text-dark-gray-300 placeholder-dark-gray-500'
+                      ? 'bg-dark-gray-700 border-dark-gray-600 text-gray-300 placeholder-dark-gray-400'
                       : 'border-gray-300 text-gray-900 placeholder-gray-500'
                   }`}
                   placeholder="Enter admin password"

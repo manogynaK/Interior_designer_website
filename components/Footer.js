@@ -12,7 +12,7 @@ const Footer = () => {
     }`}>
       <div className="container mx-auto px-6 py-12">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Company Info */}
           <div className="md:col-span-2">
             <Link href="/" className={`text-2xl font-serif font-bold mb-4 inline-block ${
@@ -191,74 +191,6 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className={`font-serif font-bold text-lg mb-4 ${
-              theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
-            }`}>
-              Newsletter
-            </h3>
-            <p className={`text-sm mb-4 ${
-              theme === 'dark' ? 'text-flagstone/90' : 'text-lucky-grey'
-            }`}>
-              Subscribe to our newsletter for the latest updates and design tips.
-            </p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className={`px-4 py-2 w-full rounded-l-md focus:outline-none focus:ring-2 ${
-                  theme === 'dark'
-                    ? 'bg-iron/20 text-flagstone focus:ring-flagstone/50 placeholder-flagstone/50'
-                    : 'bg-flagstone/10 text-balsamic focus:ring-balsamic/50 placeholder-lucky-grey/70'
-                }`}
-              />
-              <button
-                className={`px-4 py-2 rounded-r-md font-medium transition-colors duration-200 ${
-                  theme === 'dark'
-                    ? 'bg-flagstone text-balsamic hover:bg-flagstone/90'
-                    : 'bg-balsamic text-flagstone hover:bg-balsamic/90'
-                }`}
-              >
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Newsletter Signup */}
-        <div className={`border-t pt-8 ${theme === 'dark' ? 'border-iron/30' : 'border-flagstone/30'}`}>
-          <div className="max-w-md mx-auto text-center">
-            <h3 className={`font-serif font-bold text-lg mb-2 ${
-              theme === 'dark' ? 'text-flagstone' : 'text-balsamic'
-            }`}>
-              Stay Updated
-            </h3>
-            <p className={`text-sm mb-4 ${
-              theme === 'dark' ? 'text-flagstone/90' : 'text-lucky-grey'
-            }`}>
-              Get the latest design trends and project updates delivered to your inbox.
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className={`flex-1 px-4 py-2 rounded-lg border text-sm focus:outline-none focus:ring-2 ${
-                  theme === 'dark'
-                    ? 'bg-iron/20 border-iron/30 text-flagstone placeholder-flagstone/50 focus:ring-flagstone/50'
-                    : 'bg-flagstone/10 border-flagstone/20 text-balsamic placeholder-lucky-grey/70 focus:ring-balsamic/50'
-                }`}
-              />
-              <button className={`px-6 py-2 rounded-lg font-medium text-sm transition-colors ${
-                theme === 'dark' 
-                  ? 'bg-flagstone text-balsamic hover:bg-flagstone/90 shadow-lg shadow-flagstone/25' 
-                  : 'bg-balsamic text-flagstone hover:bg-balsamic/90 shadow-lg'
-              }`}>
-                Subscribe
-              </button>
-            </div>
           </div>
         </div>
 

@@ -98,7 +98,7 @@ const Machinery = () => {
   
   return (
     <div className={`min-h-screen py-20 transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-dark-primary text-dark-gray-200' : 'bg-white text-gray-800'
+      theme === 'dark' ? 'bg-dark-primary text-white' : 'bg-white text-gray-800'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -120,7 +120,7 @@ const Machinery = () => {
           </motion.h1>
           <motion.p 
             className={`max-w-3xl mx-auto text-lg ${
-              theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -161,7 +161,7 @@ const Machinery = () => {
               </div>
               <div className="p-6">
                 <p className={`mb-4 ${
-                  theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                 }`}>
                   {item.description}
                 </p>
@@ -171,7 +171,9 @@ const Machinery = () => {
                       <svg className="h-5 w-5 text-accent mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-sm">{spec}</span>
+                      <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                        {spec}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -193,7 +195,7 @@ const Machinery = () => {
             Ready to Bring Your Vision to Life?
           </h3>
           <p className={`max-w-2xl mx-auto mb-8 ${
-            theme === 'dark' ? 'text-dark-gray-300' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Our advanced machinery and expert craftsmen are ready to turn your ideas into reality. 
             Contact us to discuss your project and how we can help you achieve exceptional results.
